@@ -7,7 +7,7 @@ colors:
     highlight-primary: "#8fbcbb"
     highlight-secondary: "transparent"
     highlight-hover: "rgba(0,0,0,0.1)"
-    background: "#e5e9f0"
+    background: "#d8dee9"
     card-background: "#eceff4"
     text: "#4c566a"
     text-header: "#434c5e"
