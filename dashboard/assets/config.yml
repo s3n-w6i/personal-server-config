@@ -17,7 +17,7 @@ colors:
     link-hover: "#3b4252"
   dark:
     highlight-primary: "transparent"
-    highlight-secondary: "#5e81ac"
+    highlight-secondary: "transparent"
     highlight-hover: "#81a1c1"
     background: "#2e3440"
     card-background: "#3b4252"
