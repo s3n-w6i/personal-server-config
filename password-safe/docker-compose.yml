@@ -11,6 +11,8 @@ services:
     logging:
       options:
         max-size: 50m
+    environment:
+      SIGNUPS_ALLOWED: false
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
