@@ -5,6 +5,12 @@ services:
     image: vaultwarden/server:latest
     volumes:
       - vaultwarden:/data/
+    restart: always
+    networks:
+      - web
+    logging:
+      options:
+        max-size: 50m
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
