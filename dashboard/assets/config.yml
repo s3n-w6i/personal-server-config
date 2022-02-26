@@ -21,7 +21,6 @@ colors:
     highlight-secondary: "transparent"
     highlight-hover: "rgba(0,0,0,0.2)"
     background: "#2e3440"
-    background-image: https://source.unsplash.com/collection/1964786/3840x2160
     card-background: "#3b4252"
     text: "#d8dee9"
     text-header: "#ffffff"
