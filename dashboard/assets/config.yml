@@ -5,7 +5,7 @@ footer:
 colors:
   light:
     highlight-primary: "#8fbcbb"
-    highlight-secondary: "#d8dee9"
+    highlight-secondary: "transparent"
     highlight-hover: "#eceff4"
     background: "#e5e9f0"
     card-background: "#eceff4"
