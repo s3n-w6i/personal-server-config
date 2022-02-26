@@ -13,6 +13,8 @@ services:
         max-size: 50m
     environment:
       SIGNUPS_ALLOWED: false
+    env_file:
+      - .env.vaultwarden
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
