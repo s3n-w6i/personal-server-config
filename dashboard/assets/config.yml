@@ -35,5 +35,4 @@ services:
       - name: "Nextcloud"
         subtitle: "Files, Calendar and more"
         logo: "assets/apps/nextcloud/logo.svg"
-        tag: "app"
         url: "https://example.com"
