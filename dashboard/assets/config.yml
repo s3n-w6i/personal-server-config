@@ -18,7 +18,7 @@ colors:
   dark:
     highlight-primary: "#3b4252"
     highlight-secondary: "transparent"
-    highlight-hover: "#81a1c1"
+    highlight-hover: "rgba(1,1,1,0.1)"
     background: "#2e3440"
     card-background: "#3b4252"
     text: "#d8dee9"
