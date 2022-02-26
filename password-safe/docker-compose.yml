@@ -16,7 +16,7 @@ services:
     environment:
       SIGNUPS_ALLOWED: false
       DOMAIN: https://${VAULTWARDEN_DOMAIN}
-      DATABASE_URL: 'postgresql://vaultwarden:${DB_PASSWORD}@postgresql/vaultwarden'
+      DATABASE_URL: 'postgresql://vaultwarden:${DB_PASSWORD}@db/vaultwarden'
     env_file:
       - .env.vaultwarden
     labels:
