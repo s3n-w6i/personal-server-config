@@ -32,14 +32,12 @@ colors:
 
 services:
   - name: "Account"
-    icon: "fas fa-user"
     items:
       - name: "ID"
         subtitle: "Ändere dein Profil"
         icon: "fas fa-user"
         url: "https://example.com"
   - name: "Produktivität"
-    icon: "fas fa-cloud"
     items:
       - name: "Nextcloud"
         subtitle: "Dateien, Kalender und mehr"
