@@ -2,7 +2,7 @@ version: "3"
 
 services:
   homer:
-    image: b4bz/home
+    image: b4bz/homer
     restart: always
     networks:
       - web
