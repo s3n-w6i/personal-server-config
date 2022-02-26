@@ -36,3 +36,10 @@ services:
         subtitle: "Files, Calendar and more"
         logo: "assets/apps/nextcloud/logo.svg"
         url: "https://example.com"
+  - name: "Identity"
+    icon: "fas fa-user"
+    items:
+      - name: "ID"
+        subtitle: "Change your profile"
+        logo: "assets/apps/nextcloud/logo.svg"
+        url: "https://example.com"
