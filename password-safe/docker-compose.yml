@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    volumes:
+      - vaultwarden:/data/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.vaultwarden-web.loadbalancer.server.url=http://vaultwarden:80"
+      # HTTP
+      - "traefik.http.routers.vaultwarden-web.rule=Host(`${VAULTWARDEN_DOMAIN}`) || Host(`www.${VAULTWARDEN_DOMAIN}`)"
+      - "traefik.http.routers.vaultwarden-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.vaultwarden-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.vaultwarden-secured.rule=Host(`${VAULTWARDEN_DOMAIN}`) || Host(`www.${VAULTWARDEN_DOMAIN}`)"
+      - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"
+      - "traefik.http.routers.vaultwarden-secured.tls.certresolver=tlschallenge"
+
+volumes:
+  vaultwarden:
+
+networks:
+  web:
+    external: true
