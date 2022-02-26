@@ -30,17 +30,17 @@ colors:
     link-hover: "#eceff4"
 
 services:
-  - name: "Identity"
+  - name: "Account"
     icon: "fas fa-user"
     items:
       - name: "ID"
-        subtitle: "Change your profile"
+        subtitle: "Ändere dein Profil"
         icon: "fas fa-user"
         url: "https://example.com"
-  - name: "Productivity"
+  - name: "Produktivität"
     icon: "fas fa-cloud"
     items:
       - name: "Nextcloud"
-        subtitle: "Files, Calendar and more"
+        subtitle: "Dateien, Kalender und mehr"
         logo: "assets/apps/nextcloud/logo.svg"
         url: "https://example.com"
