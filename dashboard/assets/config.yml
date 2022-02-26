@@ -1,5 +1,33 @@
 header: false
 
+colors:
+  light:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#424242"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link: "#3273dc"
+    link-hover: "#363636"
+  dark:
+    highlight-primary: "#434c5e"
+    highlight-secondary: "#4c566a"
+    highlight-hover: "#4c566a"
+    background: "#2e3440"
+    card-background: "#3b4252"
+    text: "#d8dee9"
+    text-header: "#ffffff"
+    text-title: "#eceff4"
+    text-subtitle: "#e5e9f0"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link: "#e5e9f0"
+    link-hover: "#eceff4"
+
 services:
   - name: "Apps"
     icon: "fas fa-cloud"
