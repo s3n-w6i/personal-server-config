@@ -13,6 +13,7 @@ services:
         max-size: 50m
     environment:
       SIGNUPS_ALLOWED: false
+      DOMAIN: https://${VAULTWARDEN_DOMAIN}
     env_file:
       - .env.vaultwarden
     labels:
