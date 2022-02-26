@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  reverse-proxy:
+    restart: always
+    image: traefik:v2.5
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.web-secured.address=:443
+      # Certificate
+      - --certificatesresolvers.tlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 to generate and renew ACME certs
+      - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
+      - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert information
+      # Logging for fail2ban
+      - --accesslog=true
+      - --accesslog.filepath=var/log/access.log
+      - --accesslog.filters.statuscodes=400-499
+      - --accesslog.bufferingsize=30
+      # HTTPS redirects
+      - traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
+    ports:
+      - "80:80" # http
+      - "443:443" # https
+    expose:
+      - 8080
+    volumes:
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log/traefik:/var/log
+    networks:
+      - web
+    logging:
+      options:
+        max-size: 10m
+
+  fail2ban:
+    restart: always
+    image: crazymax/fail2ban:latest
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - /var/log/traefik:/var/log/traefik:ro
+      - ./netdata/fail2ban/log:/var/log/fail2ban.log
+      - ./netdata/fail2ban/conf:/etc/fail2ban/jail.local
+      - ./fail2ban/data:/data
+
+networks:
+  web:
