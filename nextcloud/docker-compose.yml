@@ -55,6 +55,5 @@ volumes:
 
 networks:
   web:
-      external:
-          name: web
+    external: true
   db:
