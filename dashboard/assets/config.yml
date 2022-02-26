@@ -1,4 +1,5 @@
 title: "WazServer"
+icon: "fas fa-cloud"
 
 services:
   - name: "Nextcloud"
