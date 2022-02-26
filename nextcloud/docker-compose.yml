@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  nextcloud:
+    image: nextcloud
+    restart: always
+    networks:
+      - web
+      - db
+    logging:
+      options:
+        max-size: 50m
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: nextcloud
+      POSTGRES_HOST: db
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.strapi-web.loadbalancer.server.url=http://nextcloud:80"
+      # HTTP
+      - "traefik.http.routers.strapi-web.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
+      - "traefik.http.routers.strapi-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.strapi-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.strapi-secured.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
+      - "traefik.http.routers.strapi-secured.entrypoints=web-secured"
+      - "traefik.http.routers.strapi-secured.tls.certresolver=tlschallenge"
+  db:
+    image: postgres:14-alpine
+    restart: always
+    networks:
+      - db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: 20m
+    environment:
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: nextcloud
+
+volumes:
+  nextcloud:
+  pgdata:
+
+networks:
+  web:
+      external:
+          name: web
+  db:
