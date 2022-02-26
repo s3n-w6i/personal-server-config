@@ -16,7 +16,7 @@ colors:
     link: "#434c5e"
     link-hover: "#3b4252"
   dark:
-    highlight-primary: "transparent"
+    highlight-primary: "#3b4252"
     highlight-secondary: "transparent"
     highlight-hover: "#81a1c1"
     background: "#2e3440"
