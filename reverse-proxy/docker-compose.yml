@@ -54,3 +54,4 @@ networks:
   web:
     name: web
     driver: bridge
+    internal: false
