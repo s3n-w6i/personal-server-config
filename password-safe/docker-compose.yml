@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+
   vaultwarden:
     image: vaultwarden/server:latest
     volumes:
@@ -8,12 +9,14 @@ services:
     restart: always
     networks:
       - web
+      - db
     logging:
       options:
         max-size: 50m
     environment:
       SIGNUPS_ALLOWED: false
       DOMAIN: https://${VAULTWARDEN_DOMAIN}
+      DATABASE_UR: 'postgresql://vaultwarden:${DB_PASSWORD}@postgresql/vaultwarden'
     env_file:
       - .env.vaultwarden
     labels:
@@ -32,9 +35,26 @@ services:
       - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"
       - "traefik.http.routers.vaultwarden-secured.tls.certresolver=tlschallenge"
 
+  db:
+    image: postgres:14-alpine
+    restart: always
+    networks:
+      - db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: 20m
+    environment:
+      POSTGRES_USER: vaultwarden
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: vaultwarden
+
 volumes:
   vaultwarden:
+  pgdata:
 
 networks:
   web:
     external: true
+  db:
