@@ -22,18 +22,18 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.strapi-web.loadbalancer.server.url=http://nextcloud:80"
+      - "traefik.http.services.nextcloud-web.loadbalancer.server.url=http://nextcloud:80"
       # HTTP
-      - "traefik.http.routers.strapi-web.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
-      - "traefik.http.routers.strapi-web.entrypoints=web"
+      - "traefik.http.routers.nextcloud-web.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
+      - "traefik.http.routers.nextcloud-web.entrypoints=web"
       # Redirect to HTTPS
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.strapi-web.middlewares=https_redirect"
+      - "traefik.http.routers.nextcloud-web.middlewares=https_redirect"
       # HTTPS
-      - "traefik.http.routers.strapi-secured.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
-      - "traefik.http.routers.strapi-secured.entrypoints=web-secured"
-      - "traefik.http.routers.strapi-secured.tls.certresolver=tlschallenge"
+      - "traefik.http.routers.nextcloud-secured.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
+      - "traefik.http.routers.nextcloud-secured.entrypoints=web-secured"
+      - "traefik.http.routers.nextcloud-secured.tls.certresolver=tlschallenge"
   db:
     image: postgres:14-alpine
     restart: always
