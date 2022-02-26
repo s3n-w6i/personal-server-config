@@ -1,1 +1,8 @@
 title: "WazServer"
+
+services:
+  - name: "Nextcloud"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Nextcloud"
+        url: "https://example.com"
