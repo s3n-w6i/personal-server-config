@@ -1,9 +1,11 @@
-title: "WazServer"
-icon: "fas fa-cloud"
+header: false
 
 services:
-  - name: "Nextcloud"
+  - name: "Apps"
     icon: "fas fa-cloud"
     items:
       - name: "Nextcloud"
+        subtitle: "Files, Calendar and more"
+        logo: "assets/apps/nextcloud/logo.svg"
+        tag: "app"
         url: "https://example.com"
