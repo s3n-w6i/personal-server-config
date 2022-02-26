@@ -2,18 +2,18 @@ header: false
 
 colors:
   light:
-    highlight-primary: "#3367d6"
-    highlight-secondary: "#4285f4"
-    highlight-hover: "#5a95f5"
-    background: "#f5f5f5"
-    card-background: "#ffffff"
-    text: "#363636"
-    text-header: "#424242"
-    text-title: "#303030"
-    text-subtitle: "#424242"
-    card-shadow: rgba(0, 0, 0, 0.1)
-    link: "#3273dc"
-    link-hover: "#363636"
+    highlight-primary: "#d8dee9"
+    highlight-secondary: "#8fbcbb"
+    highlight-hover: "#eceff4"
+    background: "#e5e9f0"
+    card-background: "#eceff4"
+    text: "#4c566a"
+    text-header: "#434c5e"
+    text-title: "#2e3440"
+    text-subtitle: "#3b4252"
+    card-shadow: rgba(0, 0, 0, 0.05)
+    link: "#434c5e"
+    link-hover: "#3b4252"
   dark:
     highlight-primary: "#5e81ac#3b4252"
     highlight-secondary: "#5e81ac"
