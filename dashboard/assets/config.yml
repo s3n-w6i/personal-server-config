@@ -12,11 +12,11 @@ colors:
     text-header: "#434c5e"
     text-title: "#2e3440"
     text-subtitle: "#3b4252"
-    card-shadow: rgba(0, 0, 0, 0.05)
+    card-shadow: transparent
     link: "#434c5e"
     link-hover: "#3b4252"
   dark:
-    highlight-primary: "#5e81ac#3b4252"
+    highlight-primary: "#3b4252"
     highlight-secondary: "#5e81ac"
     highlight-hover: "#81a1c1"
     background: "#2e3440"
@@ -25,7 +25,7 @@ colors:
     text-header: "#ffffff"
     text-title: "#eceff4"
     text-subtitle: "#e5e9f0"
-    card-shadow: rgba(0, 0, 0, 0.1)
+    card-shadow: transparent
     link: "#e5e9f0"
     link-hover: "#eceff4"
 
