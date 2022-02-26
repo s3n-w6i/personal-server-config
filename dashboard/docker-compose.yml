@@ -11,6 +11,9 @@ services:
         max-size: 50m
     volumes:
       - ./assets:/www/assets
+    environment:
+      - UID=1000
+      - GID=1000
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
