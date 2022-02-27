@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana-oss
+    restart: always
+    networks:
+      - web
+    logging:
+      options:
+        max-size: 50m
+    volumes:
+      - grafana:/var/www/html
+    environment:
+      GF_INSTALL_PLUGINS: grafana-clock-panel,marcusolsson-json-datasource
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.grafana-web.loadbalancer.server.url=http://grafana:3000"
+      # HTTP
+      - "traefik.http.routers.grafana-web.rule=Host(`${GRAFANA_DOMAIN}`) || Host(`www.${GRAFANA_DOMAIN}`)"
+      - "traefik.http.routers.grafana-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.grafana-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.grafana-secured.rule=Host(`${GRAFANA_DOMAIN}`) || Host(`www.${GRAFANA_DOMAIN}`)"
+      - "traefik.http.routers.grafana-secured.entrypoints=web-secured"
+      - "traefik.http.routers.grafana-secured.tls.certresolver=tlschallenge"
+
+networks:
+  web:
+    external: true
