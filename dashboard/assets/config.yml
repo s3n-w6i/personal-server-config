@@ -53,6 +53,11 @@ services:
         type: Ping
         logo: "assets/apps/nextcloud/logo.svg"
         url: "https://example.com"
+      - name: "Budibase"
+        subtitle: "Benutzerdefinierte Tools"
+        type: Ping
+        logo: "assets/apps/budibase/logo.svg"
+        url: "https://example.com"
   - name: "Daten & Automatisierung"
     items:
       - name: "Grafana"
