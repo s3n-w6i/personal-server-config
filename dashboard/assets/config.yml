@@ -2,6 +2,12 @@ header: false
 documentTitle: "Dashboard | WazServ"
 footer:
 
+message:
+  url: http://witzapi.de/api/joke
+  mapping:
+    content: '0.text'
+  title: "Zufälliger Flachwitz"
+
 colors:
   light:
     highlight-primary: "#8fbcbb"
