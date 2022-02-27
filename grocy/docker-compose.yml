@@ -23,10 +23,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://backend:9000"
-      - "traefik.http.routers.grocy-secured.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
-      - "traefik.http.routers.grocy-secured.entrypoints=web-9000"
-      - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
+      - "traefik.http.services.grocy-backend.loadbalancer.server.url=http://backend:9000"
+      - "traefik.http.routers.grocy-backend.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-backend.entrypoints=web-9000"
+      - "traefik.http.routers.grocy-backend.tls.certresolver=tlschallenge"
 
   frontend:
     image: grocy/frontend:${GROCY_IMAGE_TAG}
