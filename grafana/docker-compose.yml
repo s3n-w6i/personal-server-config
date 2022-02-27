@@ -6,11 +6,15 @@ services:
     restart: always
     networks:
       - web
+    volumes:
+      - grafana-data:/var/lib/grafana
     logging:
       options:
         max-size: 50m
     environment:
       GF_INSTALL_PLUGINS: grafana-clock-panel,marcusolsson-json-datasource
+    env_file:
+      - .env.grafana
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
@@ -30,3 +34,6 @@ services:
 networks:
   web:
     external: true
+
+volumes:
+  grafana-data:
