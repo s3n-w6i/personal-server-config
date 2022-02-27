@@ -5,7 +5,7 @@ footer:
 message:
   url: https://witzapi.de/api/joke
   mapping:
-    content: 0.text
+    content: 0
   title: "Nen dummer Witz"
 
 colors:
