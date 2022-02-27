@@ -37,9 +37,18 @@ services:
         subtitle: "Ändere dein Profil"
         icon: "fas fa-user"
         url: "https://example.com"
+      - name: "Bitwarden"
+        subtitle: "Verwalte deine Passwörter"
+        icon: "fas fa-key"
   - name: "Produktivität"
     items:
       - name: "Nextcloud"
         subtitle: "Dateien, Kalender und mehr"
         logo: "assets/apps/nextcloud/logo.svg"
+        url: "https://example.com"
+  - name: "Daten & Automatisierung"
+    items:
+      - name: "Grafana"
+        subtitle: "Dashboards"
+        logo: "assets/apps/grafana/logo.svg"
         url: "https://example.com"
