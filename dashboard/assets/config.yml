@@ -6,7 +6,7 @@ message:
   url: https://witzapi.de/api/joke
   mapping:
     content: 0
-  title: "Nen dummer Witz"
+  title: "Nen sehr dummer Flachwitz"
 
 colors:
   light:
