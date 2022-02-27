@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+  backend:
+    image: grocy/frontend
+    restart: always
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - app-db:/var/www/data
+    networks:
+      - web
+      - grocy
+    environment:
+      GROCY_MODE: production
+      GROCY_CULTURE: de
+      MAX_UPLOAD: 50M
+      PHP_MAX_FILE_UPLOAD: 200
+      PHP_MAX_POST: 100M
+      PHP_MEMORY_LIMIT: 512M
+    env_file:
+      - grocy.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://backend:9000"
+      - "traefik.http.routers.grocy-secured.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-secured.entrypoints=web-9000"
+      - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
+
+  frontend:
+    image: grocy/frontend
+    restart: always
+    depends_on:
+      - backend
+    read_only: true
+    tmpfs:
+      - /tmp
+    networks:
+      - web
+      - grocy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://frontend:8080"
+      # HTTP
+      - "traefik.http.routers.grocy-web.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.grocy-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.grocy-secured.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-secured.entrypoints=web-secured"
+      - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
+
+networks:
+  web:
+    external: true
+  grocy:
+
+volumes:
+  app-db:
