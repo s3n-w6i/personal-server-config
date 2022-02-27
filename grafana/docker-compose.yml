@@ -9,8 +9,6 @@ services:
     logging:
       options:
         max-size: 50m
-    volumes:
-      - grafana:/var/www/html
     environment:
       GF_INSTALL_PLUGINS: grafana-clock-panel,marcusolsson-json-datasource
     labels:
