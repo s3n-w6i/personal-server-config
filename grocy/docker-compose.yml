@@ -3,7 +3,7 @@ version: '3'
 services:
 
   backend:
-    image: grocy/frontend
+    image: grocy/frontend:${GROCY_IMAGE_TAG}
     restart: always
     read_only: true
     tmpfs:
@@ -29,7 +29,7 @@ services:
       - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
 
   frontend:
-    image: grocy/frontend
+    image: grocy/frontend:${GROCY_IMAGE_TAG}
     restart: always
     depends_on:
       - backend
