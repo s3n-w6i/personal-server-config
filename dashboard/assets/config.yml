@@ -5,8 +5,8 @@ footer:
 message:
   url: https://witzapi.de/api/joke
   mapping:
-    content: 0
-  title: "Zufälliger Flachwitz"
+    content: 0.text
+  title: "Nen dummer Witz"
 
 colors:
   light:
