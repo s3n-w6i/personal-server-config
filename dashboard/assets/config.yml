@@ -38,7 +38,7 @@ services:
         icon: "fas fa-user"
         url: "https://example.com"
       - name: "Bitwarden"
-        subtitle: "passwords Punkt Nachname Punkt me"
+        subtitle: "Link: passwords . Nachname . me"
         logo: "assets/apps/bitwarden/logo.svg"
   - name: "Produktivität"
     items:
