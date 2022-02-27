@@ -56,7 +56,7 @@ services:
       - name: "Budibase"
         subtitle: "Benutzerdefinierte Tools"
         type: Ping
-        logo: "assets/apps/budibase/logo.jpg"
+        logo: "assets/apps/budibase/logo.svg"
         url: "https://example.com"
   - name: "Daten & Automatisierung"
     items:
