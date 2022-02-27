@@ -44,11 +44,13 @@ services:
     items:
       - name: "Nextcloud"
         subtitle: "Dateien, Kalender und mehr"
+        type: Ping
         logo: "assets/apps/nextcloud/logo.svg"
         url: "https://example.com"
   - name: "Daten & Automatisierung"
     items:
       - name: "Grafana"
         subtitle: "Dashboards"
+        type: Ping
         logo: "assets/apps/grafana/logo.svg"
         url: "https://example.com"
