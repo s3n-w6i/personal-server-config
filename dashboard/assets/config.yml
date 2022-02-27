@@ -39,7 +39,7 @@ services:
         url: "https://example.com"
       - name: "Bitwarden"
         subtitle: "passwords Punkt Nachname Punkt me"
-        icon: "fas fa-key"
+        logo: "assets/apps/bitwarden/logo.svg"
   - name: "Produktivität"
     items:
       - name: "Nextcloud"
