@@ -9,11 +9,11 @@ services:
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
       - --entrypoints.web-secured.address=:443
-      - --entrypoints.web-9000.address=:9000
       # Certificate
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 to generate and renew ACME certs
       - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert information
+      - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
       - --accesslog=true
       - --accesslog.filepath=var/log/access.log
@@ -25,7 +25,6 @@ services:
     ports:
       - "80:80" # http
       - "443:443" # https
-      - "9000:9000"
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
