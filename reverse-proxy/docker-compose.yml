@@ -34,8 +34,8 @@ services:
     logging:
       options:
         max-size: 10m
-    labels:
-        - "traefik.enable=true"
+    expose:
+        - 443
 
   fail2ban:
     restart: always
