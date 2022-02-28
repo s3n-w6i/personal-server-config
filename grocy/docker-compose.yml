@@ -9,7 +9,7 @@ services:
     tmpfs:
       - /tmp
     volumes:
-      - grocy-db:/var/www/data
+      - grocy-data:/config
     networks:
       - web
     environment:
@@ -36,4 +36,4 @@ networks:
     external: true
 
 volumes:
-  grocy-db:
+  grocy-data:
