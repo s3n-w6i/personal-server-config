@@ -6,8 +6,6 @@ services:
     image: linuxserver/grocy
     restart: always
     read_only: true
-    tmpfs:
-      - /tmp
     volumes:
       - grocy-data:/config
     networks:
