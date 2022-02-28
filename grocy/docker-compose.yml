@@ -2,47 +2,23 @@ version: '3'
 
 services:
 
-  backend:
-    image: grocy/frontend:${GROCY_IMAGE_TAG}
+  grocy:
+    image: linuxserver/grocy
     restart: always
     read_only: true
     tmpfs:
       - /tmp
     volumes:
-      - app-db:/var/www/data
+      - grocy-db:/var/www/data
     networks:
       - web
-      - grocy
     environment:
-      GROCY_MODE: production
+      TZ: Europe/Berlin
       GROCY_CULTURE: de
-      MAX_UPLOAD: 50M
-      PHP_MAX_FILE_UPLOAD: 200
-      PHP_MAX_POST: 100M
-      PHP_MEMORY_LIMIT: 512M
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.grocy-backend.loadbalancer.server.url=http://backend:9000"
-      - "traefik.http.routers.grocy-backend.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
-      - "traefik.http.routers.grocy-backend.entrypoints=web-9000"
-      - "traefik.http.routers.grocy-backend.tls.certresolver=tlschallenge"
-
-  frontend:
-    image: grocy/frontend:${GROCY_IMAGE_TAG}
-    restart: always
-    depends_on:
-      - backend
-    read_only: true
-    tmpfs:
-      - /tmp
-    networks:
-      - web
-      - grocy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://frontend:8080"
+      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://grocy:80"
       # HTTP
       - "traefik.http.routers.grocy-web.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
       - "traefik.http.routers.grocy-web.entrypoints=web"
@@ -58,7 +34,6 @@ services:
 networks:
   web:
     external: true
-  grocy:
 
 volumes:
-  app-db:
+  grocy-db:
