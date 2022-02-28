@@ -49,10 +49,45 @@ services:
       POSTGRES_USER: nextcloud
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: nextcloud
+  onlyoffice:
+    image: onlyoffice/documentserver
+    restart: always
+    networks:
+      - web
+    env_file:
+      - .env.onlyoffice
+    environment:
+      JWT_ENABLED: true
+    logging:
+      options:
+        max-size: 20m
+    volumes:
+      - /app/onlyoffice/DocumentServer/logs:/var/log/onlyoffice
+      - onlyoffice-data:/var/www/onlyoffice/Data
+      - /app/onlyoffice/DocumentServer/lib:/var/lib/onlyoffice
+      - /app/onlyoffice/DocumentServer/rabbitmq:/var/lib/rabbitmq
+      - /app/onlyoffice/DocumentServer/redis:/var/lib/redis
+      - /app/onlyoffice/DocumentServer/db:/var/lib/postgresql
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.onlyoffice-web.loadbalancer.server.url=http://onlyoffice:80"
+      # HTTP
+      - "traefik.http.routers.onlyoffice-web.rule=Host(`${ONLYOFFICE_DOMAIN}`) || Host(`www.${ONLYOFFICE_DOMAIN}`)"
+      - "traefik.http.routers.onlyoffice-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.onlyoffice-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.onlyoffice-secured.rule=Host(`${ONLYOFFICE_DOMAIN}`) || Host(`www.${ONLYOFFICE_DOMAIN}`)"
+      - "traefik.http.routers.onlyoffice-secured.entrypoints=web-secured"
+      - "traefik.http.routers.onlyoffice-secured.tls.certresolver=tlschallenge"
 
 volumes:
   nextcloud:
   pgdata:
+  onlyoffice-data:
 
 networks:
   web:
