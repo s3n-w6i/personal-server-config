@@ -34,8 +34,6 @@ services:
     logging:
       options:
         max-size: 10m
-    expose:
-        - 443
 
   fail2ban:
     restart: always
