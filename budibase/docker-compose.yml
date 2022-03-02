@@ -6,7 +6,7 @@ services:
   app-service:
     restart: always
     image: budibase/apps
-    container_name: bbapps
+    container_name: budibase
     networks:
       - bb
     environment:
