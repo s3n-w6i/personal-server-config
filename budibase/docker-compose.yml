@@ -138,7 +138,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - bb
-    command: --debug --http-api-update bbapps bbworker bbproxy
+    command: --debug --http-api-update budibase bbworker bbproxy
     environment:
       - WATCHTOWER_HTTP_API=true
       - WATCHTOWER_HTTP_API_TOKEN=budibase
