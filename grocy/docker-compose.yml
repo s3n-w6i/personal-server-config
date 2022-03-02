@@ -12,7 +12,7 @@ services:
       - web
     environment:
       PUID: 1000
-      PGID: 1000
+      PGID: 998
       TZ: Europe/Berlin
       GROCY_CULTURE: de
     labels:
