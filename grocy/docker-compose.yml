@@ -7,7 +7,7 @@ services:
     restart: always
     read_only: true
     volumes:
-      - grocy-data:/config
+      - ./grocy-data:/config
     networks:
       - web
     environment:
