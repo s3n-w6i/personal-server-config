@@ -10,10 +10,9 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.web-secured.address=:443
       # Certificate
-      - --certificatesresolvers.tlschallenge.acme.httpchallenge.entrypoint=web # <== Enable TLS-ALPN-01 to generate and renew ACME certs
+      - --certificatesresolvers.tlschallenge.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert information
-      - --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
       - --accesslog=true
       - --accesslog.filepath=var/log/access.log
