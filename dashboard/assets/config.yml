@@ -65,3 +65,8 @@ services:
         type: Ping
         logo: "assets/apps/grafana/logo.svg"
         url: "https://example.com"
+      - name: "Grocy"
+        subtitle: "Lebensmittel verwalten, Einkaufszettel"
+        type: Ping
+        logo: "assets/apps/grocy/logo.svg"
+        url: "https://example.com"
