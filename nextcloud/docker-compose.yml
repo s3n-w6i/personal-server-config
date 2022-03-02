@@ -58,6 +58,7 @@ services:
       - .env.onlyoffice
     environment:
       JWT_ENABLED: true
+      JWT_HEADER: Authorization
     logging:
       options:
         max-size: 20m
