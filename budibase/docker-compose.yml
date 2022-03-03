@@ -108,6 +108,8 @@ services:
       - COUCHDB_USER=${COUCH_DB_USER}
     volumes:
       - couchdb3-data:/opt/couchdb/data
+    networks:
+      - web
 
   couch-init:
     image: curlimages/curl
