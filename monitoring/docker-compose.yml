@@ -1,0 +1,49 @@
+version: '3'
+services:
+  netdata:
+    image: netdata/netdata:stable
+    container_name: netdata
+    hostname: ${HOSTNAME}
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    networks:
+      - web
+    volumes:
+      - ./netdataconfig/netdata:/etc/netdata:ro
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+    logging:
+      options:
+        max-size: 100m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.grocy-web.loadbalancer.server.url=http://netdata:19999"
+      # HTTP
+      - "traefik.http.routers.grocy-web.rule=Host(`${NETDATA_DOMAIN}`) || Host(`www.${NETDATA_DOMAIN}`)"
+      - "traefik.http.routers.grocy-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.grocy-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.grocy-secured.rule=Host(`${NETDATA_DOMAIN}`) || Host(`www.${NETDATA_DOMAIN}`)"
+      - "traefik.http.routers.grocy-secured.entrypoints=web-secured"
+      - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
+
+networks:
+  web:
+    external: true
+
+volumes:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
