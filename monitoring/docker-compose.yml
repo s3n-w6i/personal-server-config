@@ -28,8 +28,9 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.netdata-web.loadbalancer.server.url=http://netdata:19999"
       # Auth
-      - "traefik.http.routers.netdata-web.middlewares=netdata-auth"
       - "traefik.http.middlewares.netdata-auth.basicauth.users=admin:${PASSWORD}"
+      - "traefik.http.routers.netdata-web.middlewares=netdata-auth"
+      - "traefik.http.routers.netdata-secured.middlewares=netdata-auth"
       # HTTP
       - "traefik.http.routers.netdata-web.rule=Host(`${NETDATA_DOMAIN}`) || Host(`www.${NETDATA_DOMAIN}`)"
       - "traefik.http.routers.netdata-web.entrypoints=web"
