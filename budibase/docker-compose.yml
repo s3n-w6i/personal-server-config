@@ -123,6 +123,8 @@ services:
     command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
+    networks:
+      - web
 
   watchtower-service:
     image: containrrr/watchtower
