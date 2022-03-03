@@ -79,6 +79,8 @@ services:
     networks:
       - web
       - bb
+    ports:
+      - "10000:10000"
     container_name: bbproxy
     image: budibase/proxy
     depends_on:
@@ -89,7 +91,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.budibase-web.loadbalancer.server.url=http://bbapps:10000"
+      - "traefik.http.services.budibase-web.loadbalancer.server.port=10000"
+      - "traefik.constraint-label=web"
       # HTTP
       - "traefik.http.routers.budibase-web.rule=Host(`${BUDIBASE_DOMAIN}`) || Host(`www.${BUDIBASE_DOMAIN}`)"
       - "traefik.http.routers.budibase-web.entrypoints=web"
