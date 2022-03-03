@@ -8,7 +8,7 @@ services:
     image: budibase/apps
     container_name: bbapps
     networks:
-      - web
+      - bb
     environment:
       SELF_HOSTED: 1
       COUCH_DB_URL: http://${COUCH_DB_USER}:${COUCH_DB_PASSWORD}@couchdb-service:5984
@@ -34,7 +34,7 @@ services:
     image: budibase/worker
     container_name: bbworker
     networks:
-      - web
+      - bb
     environment:
       SELF_HOSTED: 1
       PORT: 4003
@@ -62,7 +62,7 @@ services:
     volumes:
       - minio-data:/data
     networks:
-      - web
+      - bb
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
@@ -77,7 +77,7 @@ services:
   proxy-service:
     restart: always
     networks:
-      - web
+      - bb
     ports:
       - "10000:10000"
     container_name: bbproxy
@@ -113,7 +113,7 @@ services:
     volumes:
       - couchdb3-data:/opt/couchdb/data
     networks:
-      - web
+      - bb
 
   couch-init:
     image: curlimages/curl
@@ -130,7 +130,7 @@ services:
     volumes:
       - redis-data:/data
     networks:
-      - web
+      - bb
 
   watchtower-service:
     image: containrrr/watchtower
