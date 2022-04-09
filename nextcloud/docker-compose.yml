@@ -25,7 +25,6 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.nextcloud-web.loadbalancer.server.url=http://nextcloud:80"
       # HTTP
-      - "traefik.http.routers.nextcloud-web.priority=2"
       - "traefik.http.routers.nextcloud-web.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
       - "traefik.http.routers.nextcloud-web.entrypoints=web"
       # Redirect to HTTPS
@@ -33,7 +32,6 @@ services:
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
       - "traefik.http.routers.nextcloud-web.middlewares=https_redirect"
       # HTTPS
-      - "traefik.http.routers.nextcloud-secured.priority=2"
       - "traefik.http.routers.nextcloud-secured.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
       - "traefik.http.routers.nextcloud-secured.entrypoints=web-secured"
       - "traefik.http.routers.nextcloud-secured.tls.certresolver=tlschallenge"

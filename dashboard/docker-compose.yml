@@ -19,7 +19,6 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.homer-web.loadbalancer.server.url=http://homer:8080"
       # HTTP
-      - "traefik.http.routers.homer-web.priority=3"
       - "traefik.http.routers.homer-web.rule=Host(`${DASHBOARD_DOMAIN}`) || Host(`www.${DASHBOARD_DOMAIN}`)"
       - "traefik.http.routers.homer-web.entrypoints=web"
       # Redirect to HTTPS
@@ -27,7 +26,6 @@ services:
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
       - "traefik.http.routers.homer-web.middlewares=https_redirect,traefik-forward-auth"
       # HTTPS
-      - "traefik.http.routers.homer-secured.priority=3"
       - "traefik.http.routers.homer-secured.rule=Host(`${DASHBOARD_DOMAIN}`) || Host(`www.${DASHBOARD_DOMAIN}`)"
       - "traefik.http.routers.homer-secured.entrypoints=web-secured"
       - "traefik.http.routers.homer-secured.tls.certresolver=tlschallenge"
