@@ -55,7 +55,7 @@ services:
     image: thomseddon/traefik-forward-auth:2
     environment:
       - DEFAULT_PROVIDER=oidc
-      - PROVIDERS_OIDC_ISSUER_URL=§{OIDC_ISSUER_URL}
+      - PROVIDERS_OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
       - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
       - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
       - SECRET=${SECRET}
