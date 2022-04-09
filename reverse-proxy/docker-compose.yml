@@ -73,7 +73,7 @@ services:
 
   whoami:
     image: containous/whoami
-    network:
+    networks:
       - web
     labels:
       - "traefik.enable=true"
