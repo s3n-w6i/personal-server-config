@@ -24,13 +24,12 @@ services:
       # Redirect to HTTPS
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.homer-web.middlewares=https_redirect"
+      - "traefik.http.routers.homer-web.middlewares=https_redirect,traefik-forward-auth"
       # HTTPS
       - "traefik.http.routers.homer-secured.rule=Host(`${DASHBOARD_DOMAIN}`) || Host(`www.${DASHBOARD_DOMAIN}`)"
       - "traefik.http.routers.homer-secured.entrypoints=web-secured"
       - "traefik.http.routers.homer-secured.tls.certresolver=tlschallenge"
       # Auth
-      - "traefik.http.routers.homer-web.middlewares=traefik-forward-auth"
       - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth"
 
 networks:
