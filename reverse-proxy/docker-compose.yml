@@ -50,6 +50,25 @@ services:
       - ./netdata/fail2ban/conf:/etc/fail2ban/jail.local
       - ./fail2ban/data:/data
 
+  traefik-forward-auth:
+    restart: always
+    image: thomseddon/traefik-forward-auth:2
+    environment:
+      - DEFAULT_PROVIDER=oidc
+      - PROVIDERS_OIDC_ISSUER_URL=§{OIDC_ISSUER_URL}
+      - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      - SECRET=${SECRET}
+    logging:
+      options:
+        max-size: 10m
+    networks:
+      - web
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+
 networks:
   web:
     name: web

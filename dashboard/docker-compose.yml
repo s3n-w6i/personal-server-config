@@ -29,6 +29,8 @@ services:
       - "traefik.http.routers.homer-secured.rule=Host(`${DASHBOARD_DOMAIN}`) || Host(`www.${DASHBOARD_DOMAIN}`)"
       - "traefik.http.routers.homer-secured.entrypoints=web-secured"
       - "traefik.http.routers.homer-secured.tls.certresolver=tlschallenge"
+      # Auth
+      - "traefik.http.routers.homer-web.middlewares=traefik-forward-auth"
 
 networks:
   web:
