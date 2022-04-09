@@ -2,12 +2,6 @@ header: false
 documentTitle: "Dashboard | WazServ"
 footer:
 
-message:
-  url: https://witzapi.de/api/joke
-  mapping:
-    content: 0
-  title: "Nen sehr dummer Flachwitz"
-
 colors:
   light:
     highlight-primary: "#8fbcbb"
