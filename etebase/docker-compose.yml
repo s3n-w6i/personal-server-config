@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  etebase:
+    image: victorrds/etesync:alpine
+    restart: always
+    volumes:
+      - etebase-data:/data:rw
+    networks:
+      - web
+    environment:
+      SERVER: http-socket
+      SUPER_USER: admin
+    env_file:
+      - ./.env
+    logging:
+      options:
+        max-size: 10m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.etebase-web.loadbalancer.server.url=http://etebase:3735"
+      # HTTP
+      - "traefik.http.routers.etebase-web.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.etebase-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.etebase-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.etebase-secured.entrypoints=web-secured"
+      - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"    
+
+networks:
+  web:
+    external: true
+
+volumes:
+  etebase-data:
