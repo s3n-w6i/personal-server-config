@@ -47,6 +47,11 @@ services:
         type: Ping
         logo: "assets/apps/nextcloud/logo.svg"
         url: "https://example.com"
+      - name: "Anonaddy"
+        subtitle: "Proxy-E-Mails erstellen"
+        type: Ping
+        logo: "assets/apps/anonaddy/logo.png"
+        url: "https://example.com"
       - name: "Budibase"
         subtitle: "Benutzerdefinierte Tools"
         type: Ping
