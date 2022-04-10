@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+  anonaddy:
+    image: anonaddy/anonaddy:latest
+    restart: always
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - "anonaddydata:/data"
+    env_file:
+      - "./.env"
+    environment:
+      - "DB_HOST=db"
+      - "DB_DATABASE=${MYSQL_DATABASE}"
+      - "DB_USERNAME=${MYSQL_USER}"
+      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "REDIS_HOST=redis"
+      - "APP_URL:${DOMAIN}"
+    networks:
+      - web
+    logging:
+      options:
+        max-size: 100m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.anonaddy-web.loadbalancer.server.url=http://anonaddy:8000"
+      # HTTP
+      - "traefik.http.routers.anonaddy-web.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.anonaddy-web.entrypoints=web"
+      # Redirect to HTTPS
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.anonaddy-web.middlewares=https_redirect"
+      # HTTPS
+      - "traefik.http.routers.anonaddy-secured.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.anonaddy-secured.entrypoints=web-secured"
+      - "traefik.http.routers.anonaddy-secured.tls.certresolver=tlschallenge"
+
+  db:
+    image: mariadb:10.5
+    restart: always
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    volumes:
+      - "anonaddydb:/var/lib/mysql"
+    logging:
+      options:
+        max-size: 100m
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
+      - "MYSQL_DATABASE"
+      - "MYSQL_USER"
+      - "MYSQL_PASSWORD"
+
+  redis:
+    image: redis:4.0-alpine
+    restart: always
+    logging:
+      options:
+        max-size: 100m
+
+networks:
+  web:
+    external: true
+
+volumes:
+  anonaddydb:
+  anonaddydata:
