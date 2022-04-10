@@ -18,6 +18,7 @@ services:
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "REDIS_HOST=redis"
       - "APP_URL:${DOMAIN}"
+      - "ANONADDY_HOSTNAME:${DOMAIN}"
     networks:
       - web
     logging:
