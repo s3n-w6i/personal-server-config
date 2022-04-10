@@ -37,7 +37,7 @@ services:
       - "traefik.http.routers.nextcloud-secured.tls.certresolver=tlschallenge"
       - "traefik.http.routers.nextcloud-secured.middlewares=allow_origin"
       # Allow pinging by dashboard
-      - "traefik.http.middlewares.allow_origin.headers.customresponseheaders.Access-Control-Allow-Origin=${MAIN_DOMAIN}"
+      #- "traefik.http.middlewares.allow_origin.headers.customresponseheaders.Access-Control-Allow-Origin=${MAIN_DOMAIN}"
   db:
     image: postgres:14-alpine
     restart: always
