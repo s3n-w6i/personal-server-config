@@ -31,7 +31,7 @@ services:
       # HTTPS
       - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
       - "traefik.http.routers.etebase-secured.entrypoints=web-secured"
-      - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"    
+      - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"
 
 networks:
   web:
