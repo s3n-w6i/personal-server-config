@@ -78,8 +78,6 @@ services:
     restart: always
     networks:
       - web
-    ports:
-      - "10000:10000"
     container_name: bbproxy
     image: budibase/proxy
     depends_on:
