@@ -14,7 +14,7 @@ services:
         max-size: 50m
     environment:
       GF_INSTALL_PLUGINS: grafana-clock-panel,marcusolsson-json-datasource
-      GF_SERVER_ROOT_URL: ${GRAFANA_DOMAIN}
+      GF_SERVER_ROOT_URL: https://${GRAFANA_DOMAIN}
     env_file:
       - .env.grafana
     labels:
