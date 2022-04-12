@@ -29,7 +29,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.anonaddy-web.loadbalancer.server.url=http://anonaddy:8000"
+      - "traefik.http.services.anonaddy-web.loadbalancer.server.port=8000"
       # HTTP
       - "traefik.http.routers.anonaddy-web.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
       - "traefik.http.routers.anonaddy-web.entrypoints=web"
