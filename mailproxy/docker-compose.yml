@@ -23,6 +23,10 @@ services:
       - web
       - db
       - redis
+    ports:
+      - target: 25
+        published: 25
+        protocol: tcp
     logging:
       options:
         max-size: 100m
