@@ -22,6 +22,7 @@ services:
     networks:
       - web
       - db
+      - redis
     logging:
       options:
         max-size: 100m
@@ -67,11 +68,14 @@ services:
     logging:
       options:
         max-size: 100m
+    networks:
+      - redis
 
 networks:
   web:
     external: true
   db:
+  redis:
 
 volumes:
   anonaddydb:
