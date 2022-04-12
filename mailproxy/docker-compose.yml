@@ -21,6 +21,7 @@ services:
       - "ANONADDY_HOSTNAME:${DOMAIN}"
     networks:
       - web
+      - db
     logging:
       options:
         max-size: 100m
@@ -49,6 +50,8 @@ services:
       - "--collation-server=utf8mb4_unicode_ci"
     volumes:
       - "anonaddydb:/var/lib/mysql"
+    networks:
+      - db
     logging:
       options:
         max-size: 100m
@@ -68,6 +71,7 @@ services:
 networks:
   web:
     external: true
+  db:
 
 volumes:
   anonaddydb:
