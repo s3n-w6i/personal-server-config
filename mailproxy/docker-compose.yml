@@ -10,7 +10,6 @@ services:
     volumes:
       - "anonaddydata:/data"
     env_file:
-      - "./.env"
       - "./.env.anonaddy"
     environment:
       - "DB_HOST=db"
