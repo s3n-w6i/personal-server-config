@@ -13,7 +13,7 @@ services:
       - ZITADEL_EXTERNALSECURE=false
       # TODO: Use the following variables as defaults
       - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
-      - ZITADEL_S3DEFAULTINSTANCE_CUSTOMDOMAIN=${ZITADEL_DOMAIN}
+      - ZITADEL_DEFAULTINSTANCE_CUSTOMDOMAIN=${ZITADEL_DOMAIN}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/debug"]
       interval: 10s
