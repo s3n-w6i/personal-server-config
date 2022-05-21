@@ -35,7 +35,7 @@ services:
       - "traefik.http.routers.nextcloud-secured.rule=Host(`${NEXTCLOUD_DOMAIN}`) || Host(`www.${NEXTCLOUD_DOMAIN}`)"
       - "traefik.http.routers.nextcloud-secured.entrypoints=web-secured"
       - "traefik.http.routers.nextcloud-secured.tls.certresolver=tlschallenge"
-      - "traefik.http.routers.nextcloud-secured.middlewares=allow_origin"
+      #- "traefik.http.routers.nextcloud-secured.middlewares=allow_origin"
       # Allow pinging by dashboard
       #- "traefik.http.middlewares.allow_origin.headers.customresponseheaders.Access-Control-Allow-Origin=${MAIN_DOMAIN}"
   db:
