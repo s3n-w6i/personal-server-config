@@ -32,7 +32,7 @@ services:
       - "traefik.http.routers.homer-secured.middlewares=homer-auth"
       # Auth
       #- "traefik.http.middlewares.homer-auth.forwardauth.address=https://zitadel.ch"
-      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth"
+      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth@internal"
 
 networks:
   web:
