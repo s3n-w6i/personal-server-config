@@ -66,6 +66,7 @@ services:
       - web
     labels:
       - "traefik.docker.network=web"
+      - "traefik.http.routers.traefik-forward-auth.rule=Host(`${AUTH_DOMAIN}`)"
       - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
       - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
       - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
