@@ -6,7 +6,7 @@ services:
     networks:
       - db
       - web
-    image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.4-amd64
+    image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.7-amd64
     command: admin start-from-init --masterkeyFromEnv
     environment:
       - ZITADEL_MASTERKEY=${ZITADEL_MASTERKEY}
