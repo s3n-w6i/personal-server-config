@@ -31,8 +31,8 @@ services:
       - "traefik.http.routers.homer-secured.tls.certresolver=tlschallenge"
       - "traefik.http.routers.homer-secured.middlewares=homer-auth"
       # Auth
-      - "traefik.http.middlewares.homer-auth.forwardauth.address=https://zitadel.ch"
-      #- "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth"
+      #- "traefik.http.middlewares.homer-auth.forwardauth.address=https://zitadel.ch"
+      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth"
 
 networks:
   web:
