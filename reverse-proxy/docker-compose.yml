@@ -59,7 +59,6 @@ services:
       - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
       - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
       - SECRET=${SECRET}
-      - LOG_LEVEL=debug
     logging:
       options:
         max-size: 10m
