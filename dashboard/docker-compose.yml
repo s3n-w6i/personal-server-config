@@ -24,7 +24,7 @@ services:
       # Redirect to HTTPS
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.homer-web.middlewares=https_redirect,homer-auth"
+      - "traefik.http.routers.homer-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.homer-secured.rule=Host(`${DASHBOARD_DOMAIN}`) || Host(`www.${DASHBOARD_DOMAIN}`)"
       - "traefik.http.routers.homer-secured.entrypoints=web-secured"
@@ -32,7 +32,7 @@ services:
       - "traefik.http.routers.homer-secured.middlewares=homer-auth"
       # Auth
       #- "traefik.http.middlewares.homer-auth.forwardauth.address=https://zitadel.ch"
-      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth@internal"
+      #- "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth@internal"
 
 networks:
   web:
