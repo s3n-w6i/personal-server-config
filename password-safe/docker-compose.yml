@@ -16,7 +16,7 @@ services:
     environment:
       SIGNUPS_ALLOWED: false
       DOMAIN: https://${VAULTWARDEN_DOMAIN}
-      DATABASE_URL: 'postgresql://vaultwarden:${DB_PASSWORD}@db/vaultwarden'
+      # DATABASE_URL: 'postgresql://vaultwarden:${DB_PASSWORD}@db/vaultwarden'
     env_file:
       - .env.vaultwarden
     labels:
@@ -35,20 +35,20 @@ services:
       - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"
       - "traefik.http.routers.vaultwarden-secured.tls.certresolver=tlschallenge"
 
-  db:
-    image: postgres:14-alpine
-    restart: always
-    networks:
-      - db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    logging:
-      options:
-        max-size: 20m
-    environment:
-      POSTGRES_USER: vaultwarden
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: vaultwarden
+  # db:
+  #   image: postgres:14-alpine
+  #   restart: always
+  #   networks:
+  #     - db
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   logging:
+  #     options:
+  #       max-size: 20m
+  #   environment:
+  #     POSTGRES_USER: vaultwarden
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #     POSTGRES_DB: vaultwarden
 
 volumes:
   vaultwarden:
