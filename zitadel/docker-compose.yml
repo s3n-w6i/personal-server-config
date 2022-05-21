@@ -14,7 +14,7 @@ services:
       - ZITADEL_EXTERNALSECURE=false
       - ZITADEL_DEFAULTINSTANCE_CUSTOMDOMAIN=${ZITADEL_DOMAIN}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/debug"]
+      test: ["CMD", "curl", "-f", "http://zitadel:8080/debug"]
       interval: 10s
       timeout: 30s
       retries: 5
@@ -45,7 +45,7 @@ services:
     image: cockroachdb/cockroach:v21.2.5
     command: start-single-node --insecure --listen-addr=0.0.0.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
+      test: ["CMD", "curl", "-f", "http://db:8080/health?ready=1"]
       interval: 10s
       timeout: 30s
       retries: 5
