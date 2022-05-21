@@ -51,7 +51,7 @@ services:
       - ./fail2ban/data:/data
 
   traefik-forward-auth:
-    name: traefik-forward-auth
+    container_name: traefik-forward-auth
     restart: always
     image: thomseddon/traefik-forward-auth:2
     environment:
