@@ -3,6 +3,8 @@ version: "3"
 services:
 
   vaultwarden:
+    depends_on:
+      - db
     image: vaultwarden/server:latest
     volumes:
       - vaultwarden:/data/
