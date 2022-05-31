@@ -93,10 +93,6 @@ services:
       # HTTP
       - "traefik.http.routers.budibase-web.rule=Host(`${BUDIBASE_DOMAIN}`) || Host(`www.${BUDIBASE_DOMAIN}`)"
       - "traefik.http.routers.budibase-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.budibase-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.budibase-secured.rule=Host(`${BUDIBASE_DOMAIN}`) || Host(`www.${BUDIBASE_DOMAIN}`)"
       - "traefik.http.routers.budibase-secured.entrypoints=web-secured"

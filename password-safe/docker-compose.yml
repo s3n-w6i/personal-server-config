@@ -28,10 +28,6 @@ services:
       # HTTP
       - "traefik.http.routers.vaultwarden-web.rule=Host(`${VAULTWARDEN_DOMAIN}`) || Host(`www.${VAULTWARDEN_DOMAIN}`)"
       - "traefik.http.routers.vaultwarden-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.vaultwarden-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.vaultwarden-secured.rule=Host(`${VAULTWARDEN_DOMAIN}`) || Host(`www.${VAULTWARDEN_DOMAIN}`)"
       - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"

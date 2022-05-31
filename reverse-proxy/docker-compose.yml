@@ -18,9 +18,8 @@ services:
       - --accesslog.filepath=var/log/access.log
       - --accesslog.filters.statuscodes=400-499
       - --accesslog.bufferingsize=30
-      # HTTPS redirects
-      #- traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
-      #- traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
+      # Default middlewares
+      - --entrypoints.web.http.middlewares=https_redirect
     ports:
       - "80:80" # http
       - "443:443" # https
@@ -33,6 +32,9 @@ services:
     logging:
       options:
         max-size: 10m
+    labels:
+      - traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
 
   fail2ban:
     restart: always
@@ -50,27 +52,27 @@ services:
       - ./netdata/fail2ban/conf:/etc/fail2ban/jail.local
       - ./fail2ban/data:/data
 
-  traefik-forward-auth:
-    restart: always
-    image: thomseddon/traefik-forward-auth:2
-    environment:
-      - DEFAULT_PROVIDER=oidc
-      - PROVIDERS_OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
-      - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
-      - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
-      - SECRET=${SECRET}
-    logging:
-      options:
-        max-size: 10m
-    networks:
-      - web
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.traefik-forward-auth.rule=Host(`${AUTH_DOMAIN}`)"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
-      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+  # traefik-forward-auth:
+  #   restart: always
+  #   image: thomseddon/traefik-forward-auth:2
+  #   environment:
+  #     - DEFAULT_PROVIDER=oidc
+  #     - PROVIDERS_OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
+  #     - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+  #     - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+  #     - SECRET=${SECRET}
+  #   logging:
+  #     options:
+  #       max-size: 10m
+  #   networks:
+  #     - web
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.docker.network=web"
+  #     - "traefik.http.routers.traefik-forward-auth.rule=Host(`${AUTH_DOMAIN}`)"
+  #     - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+  #     - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+  #     - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
 
 networks:
   web:

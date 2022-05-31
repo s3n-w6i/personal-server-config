@@ -24,10 +24,6 @@ services:
       # HTTP
       - "traefik.http.routers.grocy-web.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
       - "traefik.http.routers.grocy-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.grocy-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.grocy-secured.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
       - "traefik.http.routers.grocy-secured.entrypoints=web-secured"

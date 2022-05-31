@@ -37,10 +37,6 @@ services:
       # HTTP
       - "traefik.http.routers.anonaddy-web.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
       - "traefik.http.routers.anonaddy-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.anonaddy-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.anonaddy-secured.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
       - "traefik.http.routers.anonaddy-secured.entrypoints=web-secured"

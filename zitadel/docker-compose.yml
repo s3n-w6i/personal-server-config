@@ -29,10 +29,6 @@ services:
       # HTTP
       - "traefik.http.routers.zitadel-web.rule=Host(`${ZITADEL_DOMAIN}`) || Host(`www.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.zitadel-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.zitadel-secured.rule=Host(`${ZITADEL_DOMAIN}`) || Host(`www.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-secured.entrypoints=web-secured"
