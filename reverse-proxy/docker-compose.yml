@@ -3,7 +3,7 @@ version: "3"
 services:
   reverse-proxy:
     restart: always
-    image: traefik:v2.6
+    image: traefik:v2.7
     command:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
