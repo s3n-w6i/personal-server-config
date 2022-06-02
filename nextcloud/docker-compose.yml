@@ -75,10 +75,6 @@ services:
       # HTTP
       - "traefik.http.routers.onlyoffice-web.rule=Host(`${ONLYOFFICE_DOMAIN}`) || Host(`www.${ONLYOFFICE_DOMAIN}`)"
       - "traefik.http.routers.onlyoffice-web.entrypoints=web"
-      # Redirect to HTTPS
-      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-      - "traefik.http.routers.onlyoffice-web.middlewares=https_redirect"
       # HTTPS
       - "traefik.http.routers.onlyoffice-secured.rule=Host(`${ONLYOFFICE_DOMAIN}`) || Host(`www.${ONLYOFFICE_DOMAIN}`)"
       - "traefik.http.routers.onlyoffice-secured.entrypoints=web-secured"
