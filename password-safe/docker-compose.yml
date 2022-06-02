@@ -32,6 +32,8 @@ services:
       - "traefik.http.routers.vaultwarden-secured.rule=Host(`${VAULTWARDEN_DOMAIN}`) || Host(`www.${VAULTWARDEN_DOMAIN}`)"
       - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"
       - "traefik.http.routers.vaultwarden-secured.tls.certresolver=tlschallenge"
+      # Auth
+      - "traefik.http.routers.vaultwarden-secured.middlewares=traefik-forward-auth@docker"
 
   db:
     image: postgres:14-alpine
