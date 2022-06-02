@@ -21,6 +21,7 @@ services:
       - --accesslog.bufferingsize=30
       # Default middlewares
       - --entrypoints.web.http.middlewares=https_redirect,traefik-forward-auth
+      - --entrypoints.web-secured.http.middlewares=traefik-forward-auth
     ports:
       - "80:80" # http
       - "443:443" # https
