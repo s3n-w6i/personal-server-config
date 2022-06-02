@@ -63,6 +63,7 @@ services:
       - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
       - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
       - SECRET=${SECRET}
+      - AUTH_HOST=${AUTH_DOMAIN}
     logging:
       options:
         max-size: 10m
@@ -79,9 +80,9 @@ services:
       - "traefik.http.routers.traefik-forward-auth-secured.entrypoints=web-secured"
       - "traefik.http.routers.traefik-forward-auth-secured.tls.certresolver=tlschallenge"
       # Auth middleware
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
-      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+      #- "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      #- "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      #- "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
 
 networks:
   web:
