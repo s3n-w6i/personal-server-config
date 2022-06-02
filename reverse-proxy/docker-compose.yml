@@ -20,7 +20,7 @@ services:
       - --accesslog.filters.statuscodes=400-499
       - --accesslog.bufferingsize=30
       # Default middlewares
-      - --entrypoints.web.http.middlewares=https_redirect
+      - --entrypoints.web.http.middlewares=https_redirect,traefik-forward-auth
     ports:
       - "80:80" # http
       - "443:443" # https
@@ -82,9 +82,9 @@ services:
       - "traefik.http.routers.traefik-forward-auth-secured.entrypoints=web-secured"
       - "traefik.http.routers.traefik-forward-auth-secured.tls.certresolver=tlschallenge"
       # Auth middleware
-      #- "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      #- "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
-      #- "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
 
 networks:
   web:
