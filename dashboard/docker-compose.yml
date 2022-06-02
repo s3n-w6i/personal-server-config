@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.homer-secured.entrypoints=web-secured"
       - "traefik.http.routers.homer-secured.tls.certresolver=tlschallenge"
       # Auth
-      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth@internal"
+      - "traefik.http.routers.homer-secured.middlewares=traefik-forward-auth@docker"
 
 networks:
   web:
