@@ -65,7 +65,7 @@ services:
       - SECRET=${SECRET}
       - AUTH_HOST=${AUTH_DOMAIN}
       #- COOKIE_DOMAIN=${ROOT_DOMAIN}
-      - LOG_LEVEL=debug
+      #- LOG_LEVEL=debug
     logging:
       options:
         max-size: 10m
