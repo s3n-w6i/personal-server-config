@@ -34,7 +34,6 @@ services:
         max-size: 10m
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=web"
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
 
