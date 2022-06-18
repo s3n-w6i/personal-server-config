@@ -31,7 +31,7 @@ services:
       # Services
       - "traefik.http.services.zitadel-web.loadbalancer.server.url=http://zitadel:8080"
       # HTTP/2 Support for Zitadel
-      - "traefik.http.services.zitadel.loadbalancer.servers.url=h2c://zitadel:8080"
+      - "traefik.http.services.zitadel.loadbalancer.server.url=h2c://zitadel:8080"
       - "traefik.http.services.zitadel.loadbalancer.passhostheader=h2c://zitadel:8080"
       # HTTP
       - "traefik.http.routers.zitadel-web.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
