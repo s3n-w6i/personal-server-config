@@ -7,7 +7,7 @@ services:
       - db
       - web
     image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.24-amd64
-    command: admin start-from-init --masterkey "${ZITADEL_MASTERKEY}"
+    command: admin start-from-init --masterkey "${ZITADEL_MASTERKEY}" --tlsMode external
     environment:
       - ZITADEL_DATABASE_HOST=db
       - ZITADEL_EXTERNALSECURE=true
