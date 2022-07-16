@@ -7,7 +7,7 @@ services:
       - db
       - web
     image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.24-amd64
-    command: start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --tlsMode external
+    command: admin start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --tlsMode external
     environment:
       - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
       - ZITADEL_S3DEFAULTINSTANCE_CUSTOMDOMAIN= ${ZITADEL_DOMAIN}
