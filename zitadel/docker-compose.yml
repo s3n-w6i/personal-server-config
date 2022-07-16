@@ -7,32 +7,26 @@ services:
       - db
       - web
     image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.24-amd64
-    command: admin start-from-init --masterkey "${ZITADEL_MASTERKEY}" --tlsMode external
+    command: start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --tlsMode external
     environment:
-      - ZITADEL_DATABASE_HOST=db
-      - ZITADEL_EXTERNALSECURE=true
-      - ZITADEL_EXTERNALPORT=443
       - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
-    healthcheck:
-      test: ["CMD", "zitadel", "admin", "status", "health"]
-      interval: 10s
-      timeout: 30s
-      retries: 5
-      start_period: 40s
+      - ZITADEL_DATABASE_USER_PASSWORD=${DATABASE_PASSWORD}
+      - ZITADEL_ADMINUSER_PASSWORD=${ADMIN_PASSWORD}
     depends_on:
-      db:
-        condition: service_healthy
+      chown:
+        condition: 'service_completed_successfully'
+    volumes:
+      - ./zitadel-config.yml:/zitadel-config.yaml:ro
+      - zitadel-certs:/crdb-certs:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       # Middlewares
       - "traefik.http.middlewares.zitadel.headers.isdevelopment=false"
-      - "traefik.http.middlewares.zitadel.allowedhosts=${ZITADEL_DOMAIN}"
-      # Services
-      - "traefik.http.services.zitadel-web.loadbalancer.server.url=http://zitadel:8080"
+      - "traefik.http.middlewares.zitadel.headers.allowedhosts=${ZITADEL_DOMAIN}"
       # HTTP/2 Support for Zitadel
       - "traefik.http.services.zitadel.loadbalancer.server.url=h2c://zitadel:8080"
-      - "traefik.http.services.zitadel.loadbalancer.passhostheader=h2c://zitadel:8080"
+      - "traefik.http.services.zitadel.loadbalancer.passhostheader=true"
       # HTTP
       - "traefik.http.routers.zitadel-web.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-web.entrypoints=web"
@@ -41,14 +35,26 @@ services:
       - "traefik.http.routers.zitadel-secured.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-secured.entrypoints=web-secured"
       - "traefik.http.routers.zitadel-secured.tls.certresolver=tlschallenge"
-      - "traefik.http.routers.zitadel-secured.service=zitadel,zitadel-web"
+      - "traefik.http.routers.zitadel-secured.service=zitadel"
+      - "traefik.http.routers.zitadel-secured.middlewares=zitadel"
+  
+  chown:
+    image: cockroachdb/cockroach:v22.1.0
+    entrypoint: [ '/bin/bash', '-c' ]
+    command: [ 'cp /certs/ca.crt /zitadel-certs/ && cp /certs/client.root.crt /zitadel-certs/ && cp /certs/client.root.key /zitadel-certs/ && chown 1000:1000 /zitadel-certs/* && chmod 0400 /zitadel-certs/*' ]
+    volumes:
+      - 'certs:/certs:ro'
+      - 'zitadel-certs:/zitadel-certs:rw'
+    depends_on:
+      db:
+        condition: 'service_healthy'
 
   db:
     restart: always
     networks:
       - db
     image: cockroachdb/cockroach:v22.1.0
-    command: start-single-node --insecure
+    command: start-single-node --advertise-addr db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
       interval: 10s
@@ -56,13 +62,16 @@ services:
       retries: 5
       start_period: 20s
     volumes:
-      - cockroachdata:/cockroach/cockroach-data
+      - cockroachdata:/cockroach/cockroach-data:rw
+      - cets:/cockroach/certs:rw
 #     ports:
 #       - 9090:8080
 #       - 26257:26257
 
 volumes:
   cockroachdata:
+  zitadel-certs:
+  certs:
 
 networks:
   db:
