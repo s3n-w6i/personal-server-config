@@ -26,7 +26,7 @@ services:
       - "traefik.http.middlewares.zitadel.headers.isdevelopment=false"
       - "traefik.http.middlewares.zitadel.headers.allowedhosts=${ZITADEL_DOMAIN}"
       # HTTP/2 Support for Zitadel
-      - "traefik.http.services.zitadel.loadbalancer.server.url=h2c://zitadel:8080"
+      - "traefik.http.services.zitadel.loadbalancer.server.scheme=h2c"
       - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
       - "traefik.http.services.zitadel.loadbalancer.passhostheader=true"
       # HTTP
