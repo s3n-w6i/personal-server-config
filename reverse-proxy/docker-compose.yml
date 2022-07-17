@@ -64,7 +64,7 @@ services:
       - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
       - SECRET=${SECRET}
       - AUTH_HOST=${AUTH_DOMAIN}
-      #- COOKIE_DOMAIN=${ROOT_DOMAIN}
+      - COOKIE_DOMAIN=${ROOT_DOMAIN}
       #- LOG_LEVEL=debug
     logging:
       options:
