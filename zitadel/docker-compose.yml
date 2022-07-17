@@ -13,6 +13,7 @@ services:
       #- ZITADEL_S3DEFAULTINSTANCE_CUSTOMDOMAIN= ${ZITADEL_DOMAIN}
       - ZITADEL_DATABASE_USER_PASSWORD=${DATABASE_PASSWORD}
       - ZITADEL_ADMINUSER_PASSWORD=${ADMIN_PASSWORD}
+      - ZITADEL_LOG_LEVEL=debug
     depends_on:
       chown:
         condition: 'service_completed_successfully'
