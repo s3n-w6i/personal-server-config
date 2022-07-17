@@ -27,18 +27,16 @@ services:
       - "traefik.http.middlewares.zitadel.headers.isdevelopment=false"
       - "traefik.http.middlewares.zitadel.headers.allowedhosts=${ZITADEL_DOMAIN}"
       # HTTP/2 Support for Zitadel
-      - "traefik.http.services.zitadel.loadbalancer.server.scheme=h2c"
-      - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
-      - "traefik.http.services.zitadel.loadbalancer.passhostheader=true"
+      - "traefik.http.services.zitadel-web.loadbalancer.server.scheme=h2c"
+      - "traefik.http.services.zitadel-web.loadbalancer.server.port=8080"
+      - "traefik.http.services.zitadel-web.loadbalancer.passhostheader=true"
       # HTTP
       - "traefik.http.routers.zitadel-web.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-web.entrypoints=web"
-      - "traefik.http.routers.zitadel-web.service=zitadel"
       # HTTPS
       - "traefik.http.routers.zitadel-secured.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-secured.entrypoints=web-secured"
       - "traefik.http.routers.zitadel-secured.tls.certresolver=tlschallenge"
-      - "traefik.http.routers.zitadel-secured.service=zitadel"
       - "traefik.http.routers.zitadel-secured.middlewares=zitadel"
   
   chown:
