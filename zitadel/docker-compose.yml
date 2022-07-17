@@ -67,9 +67,9 @@ services:
     volumes:
       - cockroachdata:/cockroach/cockroach-data:rw
       - certs:/cockroach/certs:rw
-    ports:
-      - 9090:8080
-      - 26257:26257
+    # ports:
+    #   - 9090:8080
+    #   - 26257:26257
 
 volumes:
   cockroachdata:
