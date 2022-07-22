@@ -9,7 +9,7 @@ services:
     image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.43-amd64
     command: 'start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --tlsMode external'
     environment:
-      # - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
+      - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
       #- ZITADEL_S3DEFAULTINSTANCE_CUSTOMDOMAIN= ${ZITADEL_DOMAIN}
       - ZITADEL_DATABASE_USER_PASSWORD=${DATABASE_PASSWORD}
       - ZITADEL_ADMINUSER_PASSWORD=${ADMIN_PASSWORD}
