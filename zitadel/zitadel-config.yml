@@ -6,6 +6,11 @@ Log:
 ExternalSecure: true
 ExternalPort: 443
 
+DefaultInstance:
+  LoginPolicy:
+    AllowRegister: false
+    ForceMFA: true
+
 # If not using the docker compose example, adjust these values for connecting ZITADEL to your CockroachDB
 Database:
   Host: 'db'
