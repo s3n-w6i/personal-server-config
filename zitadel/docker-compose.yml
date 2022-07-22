@@ -7,7 +7,7 @@ services:
       - db
       - web
     image: ghcr.io/zitadel/zitadel:v2.0.0-v2-alpha.43-amd64
-    command: 'start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --tlsMode external'
+    command: 'start-from-init --masterkey "${ZITADEL_MASTERKEY}" --config /zitadel-config.yaml --steps /zitadel-init-steps.yaml --tlsMode external'
     environment:
       - ZITADEL_EXTERNALDOMAIN=${ZITADEL_DOMAIN}
       - ZITADEL_S3DEFAULTINSTANCE_CUSTOMDOMAIN= ${ZITADEL_DOMAIN}
@@ -19,6 +19,7 @@ services:
         condition: 'service_completed_successfully'
     volumes:
       - ./zitadel-config.yml:/zitadel-config.yaml:ro
+      - ./zitadel-init-steps.yml:/zitadel-init-steps.yaml:ro
       - zitadel-certs:/crdb-certs:ro
     labels:
       - "traefik.enable=true"
