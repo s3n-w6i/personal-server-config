@@ -49,6 +49,7 @@ services:
       - "traefik.http.routers.zitadel-secured.rule=HostRegexp(`${ZITADEL_DOMAIN}`, `{subdomain:[a-z]+}.${ZITADEL_DOMAIN}`)"
       - "traefik.http.routers.zitadel-secured.entrypoints=web-secured"
       - "traefik.http.routers.zitadel-secured.tls.certresolver=tlschallenge"
+      - "traefik.http.routers.zitadel-secured.tls.domains.main=`${ZITADEL_DOMAIN}`"
       - "traefik.http.routers.zitadel-secured.middlewares=zitadel"
   
   chown:
