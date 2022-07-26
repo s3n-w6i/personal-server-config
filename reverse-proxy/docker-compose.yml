@@ -17,6 +17,7 @@ services:
       #- --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # HTTP Challenge for Zitadel
       - --certificatesresolvers.httpchallenge.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.httpchallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
       - --accesslog=true
       - --accesslog.filepath=var/log/access.log
