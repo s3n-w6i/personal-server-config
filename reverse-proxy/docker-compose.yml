@@ -10,10 +10,13 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.web-secured.address=:443
       # Certificate
+      # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
       - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert informationcertificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       #- --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # HTTP Challenge for Zitadel
+      - --certificatesresolvers.httpchallenge.acme.httpchallenge.entrypoint=web
       # Logging for fail2ban
       - --accesslog=true
       - --accesslog.filepath=var/log/access.log
