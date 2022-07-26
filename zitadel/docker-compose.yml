@@ -50,6 +50,7 @@ services:
       - "traefik.http.routers.zitadel-secured.entrypoints=web-secured"
       - "traefik.http.routers.zitadel-secured.tls.certresolver=tlschallenge"
       - "traefik.http.routers.zitadel-secured.tls.domains[0].main=${ZITADEL_DOMAIN}"
+      - "traefik.http.routers.zitadel-secured.tls.domains[0].sans=${ZITADEL_DOMAIN},*.${ZITADEL_DOMAIN}"
       - "traefik.http.routers.zitadel-secured.middlewares=zitadel"
   
   chown:
