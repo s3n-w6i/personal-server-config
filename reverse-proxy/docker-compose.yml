@@ -16,6 +16,9 @@ services:
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert informationcertificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       #- --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # HTTP Challenge for Zitadel
+      - --certificatesresolvers.httpchallenge.acme.httpchallenge=true
+      - --certificatesresolvers.httpchallenge.acme.email=${CERTIFICATE_EMAIL}
+      - --certificatesresolvers.httpchallenge.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.httpchallenge.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.httpchallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
