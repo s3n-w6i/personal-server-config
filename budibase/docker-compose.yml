@@ -5,6 +5,8 @@ version: "3"
 services:
   postgres:
     image: "postgres:14-alpine"
+    networks:
+      - postgres
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
@@ -18,6 +20,7 @@ services:
     container_name: bbapps
     networks:
       - web
+      - postgres
     environment:
       SELF_HOSTED: 1
       COUCH_DB_URL: http://${COUCH_DB_USER}:${COUCH_DB_PASSWORD}@couchdb-service:5984
@@ -47,6 +50,7 @@ services:
     container_name: bbworker
     networks:
       - web
+      - postgres
     environment:
       SELF_HOSTED: 1
       PORT: 4003
@@ -185,3 +189,4 @@ volumes:
 networks:
   web:
     external: true
+  postgres:
