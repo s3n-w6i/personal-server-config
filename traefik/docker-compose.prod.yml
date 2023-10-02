@@ -14,7 +14,7 @@ services:
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
       - --certificatesresolvers.tlschallenge.acme.email=$(cat /run/secrets/traefik_certificate-email) # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert informationcertificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      #- --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
       - --accesslog=true
       - --accesslog.filepath=var/log/access.log
