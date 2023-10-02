@@ -23,8 +23,7 @@ services:
       SMTP_HOST_FILE: /run/secrets/mail_smtp_host
       SMTP_FROM_FILE: /run/secrets/mail_smtp_from
       SMTP_PORT_FILE: /run/secrets/mail_smtp_port
-      SMTP_SSL_FILE: /run/secrets/mail_smtp_ssl
-      SMTP_EXPLICIT_TLS: false
+      SMTP_SECURITY_FILE: /run/secrets/mail_smtp_security
       SMTP_USERNAME_FILE: /run/secrets/mail_smtp_username
       SMTP_PASSWORD_FILE: /run/secrets/mail_smtp_password
       ADMIN_TOKEN_FILE: /run/secrets/vaultwarden_admin-token
@@ -87,8 +86,8 @@ secrets:
     file: ../secrets/mail_smtp_from
   mail_smtp_port:
     file: ../secrets/mail_smtp_port
-  mail_smtp_ssl:
-    file: ../secrets/mail_smtp_ssl
+  mail_smtp_security:
+    file: ../secrets/mail_smtp_security
   mail_smtp_username:
     file: ../secrets/mail_smtp_username
   mail_smtp_password:
