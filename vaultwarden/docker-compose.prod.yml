@@ -6,8 +6,10 @@ services:
     depends_on:
       - db
     image: vaultwarden/server:latest
+    user: 1000:1000
     volumes:
       - vaultwarden:/data/
+      - ./config/vaultwarden/scripts/:/etc/vaultwarden.d
     restart: always
     networks:
       - web
@@ -17,19 +19,26 @@ services:
         max-size: 50m
     environment:
       SIGNUPS_ALLOWED: false
-      DOMAIN: https://${VAULTWARDEN_DOMAIN}.${}
-      DATABASE_URL: 'postgresql://vaultwarden:${DB_PASSWORD}@db/vaultwarden'
-      SMTP_HOST: 
-    env_file:
-      - .env.vaultwarden
+      SHOW_PASSWORD_HINT: false
+      DATABASE_URL: 'postgresql://vaultwarden:vaultwarden@db/vaultwarden'
+      SMTP_HOST_FILE: /run/secrets/mail_smtp_host
+      SMTP_FROM_FILE: /run/secrets/mail_smtp_from
+      SMTP_PORT_FILE: /run/secrets/mail_smtp_port
+      SMTP_SSL_FILE: /run/secrets/mail_smtp_ssl
+      SMTP_EXPLICIT_TLS: false
+      SMTP_USERNAME_FILE: /run/secrets/mail_smtp_username
+      SMTP_PASSWORD_FILE: /run/secrets/mail_smtp_password
+      ADMIN_TOKEN_FILE: /run/secrets/vaultwarden_admin-token
     secrets:
       - domains_base
+      - domains_vaultwarden
       - mail_smtp_host
       - mail_smtp_from
       - mail_smtp_port
       - mail_smtp_ssl
       - mail_smtp_username
       - mail_smtp_password
+      - vaultwarden_admin-token
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
@@ -56,7 +65,7 @@ services:
         max-size: 20m
     environment:
       POSTGRES_USER: vaultwarden
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: vaultwarden
       POSTGRES_DB: vaultwarden
 
 volumes:
@@ -70,4 +79,20 @@ networks:
 
 secrets:
   domains_base:
-    external: true
+    file: ../secrets/domains_base
+  domains_vaultwarden:
+    file: ../secrets/domains_vaultwarden
+  mail_smtp_host:
+    file: ../secrets/mail_smtp_host
+  mail_smtp_from:
+    file: ../secrets/mail_smtp_from
+  mail_smtp_port:
+    file: ../secrets/mail_smtp_port
+  mail_smtp_ssl:
+    file: ../secrets/mail_smtp_ssl
+  mail_smtp_username:
+    file: ../secrets/mail_smtp_username
+  mail_smtp_password:
+    file: ../secrets/mail_smtp_password
+  vaultwarden_admin-token:
+    file: ../secrets/vaultwarden_admin-token
