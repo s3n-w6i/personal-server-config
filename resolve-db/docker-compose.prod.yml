@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+
+  resolve-db:
+    image: postgres:16-alpine
+    restart: always
+    networks:
+      - web
+    volumes:
+      - db:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: 20m
+    secrets:
+      - username
+      - password
+    environment:
+      POSTGRES_DB: resolve-db
+      POSTGRES_USER: /run/secrets/username
+      POSTGRES_PASSWORD: /run/secrets/password
+
+secrets:
+  username:
+    environment: 
+  password:
+
+volumes:
+  vaultwarden:
+  db:
+
+networks:
+  web:
+    external: true

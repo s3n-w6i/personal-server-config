@@ -53,7 +53,7 @@ services:
       - /var/log/traefik:/var/log/traefik:ro
       - ./netdata/fail2ban/log:/var/log/fail2ban.log
       - ./netdata/fail2ban/conf:/etc/fail2ban/jail.local
-      - ./fail2ban/data:/data
+      - ./config/fail2ban/data:/data
 
   traefik-forward-auth:
     restart: always
