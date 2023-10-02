@@ -6,7 +6,6 @@ services:
     depends_on:
       - db
     image: vaultwarden/server:latest
-    user: 1000:1000
     volumes:
       - vaultwarden:/data/
       - ./config/vaultwarden/scripts/:/etc/vaultwarden.d
