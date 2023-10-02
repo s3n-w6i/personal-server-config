@@ -5,6 +5,7 @@ services:
     restart: always
     image: traefik:v2.7
     command:
+      - entrypoint.sh
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
