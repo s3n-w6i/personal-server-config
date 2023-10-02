@@ -5,8 +5,6 @@ services:
     restart: always
     image: traefik:v2.7
     command:
-      - export CERTIFICATE_EMAIL=$(cat /run/secrets/traefik_certificate-email)
-      - traefik
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
@@ -28,7 +26,8 @@ services:
       - "80:80" # http
       - "443:443" # https
     volumes:
-      - ./letsencrypt:/letsencrypt
+      - ./config/traefik/inject-secrets.bash:/etc/traefik.d/inject-secrets.bash
+      - traefik-certs:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/log/traefik:/var/log
     networks:
@@ -97,6 +96,8 @@ networks:
     driver: bridge
     internal: false
 
+volumes:
+  traefik-certs:
 
 secrets:
   traefik_certificate-email:
