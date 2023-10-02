@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  reverse-proxy:
+  traefik:
     restart: always
     image: traefik:v2.7
     command:
@@ -12,7 +12,7 @@ services:
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
-      - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
+      - --certificatesresolvers.tlschallenge.acme.email=$(cat /run/secrets/traefik_certificate-email) # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert informationcertificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       #- --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
@@ -31,6 +31,8 @@ services:
       - /var/log/traefik:/var/log
     networks:
       - web
+    secrets:
+      - traefik_certificate-email
     logging:
       options:
         max-size: 10m
@@ -92,3 +94,8 @@ networks:
     name: web
     driver: bridge
     internal: false
+
+
+secrets:
+  traefik_certificate-email:
+    file: ../secrets/traefik_certificate-email
