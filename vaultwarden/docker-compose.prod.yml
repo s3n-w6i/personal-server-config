@@ -33,7 +33,7 @@ services:
       - mail_smtp_host
       - mail_smtp_from
       - mail_smtp_port
-      - mail_smtp_ssl
+      - mail_smtp_security
       - mail_smtp_username
       - mail_smtp_password
       - vaultwarden_admin-token
