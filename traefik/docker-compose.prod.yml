@@ -55,37 +55,37 @@ services:
       - ./netdata/fail2ban/conf:/etc/fail2ban/jail.local
       - ./config/fail2ban/data:/data
 
-  traefik-forward-auth:
-    restart: always
-    image: thomseddon/traefik-forward-auth:2
-    environment:
-      - DEFAULT_PROVIDER=oidc
-      - PROVIDERS_OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
-      - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
-      - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
-      - SECRET=${SECRET}
-      - AUTH_HOST=${AUTH_DOMAIN}
-      - COOKIE_DOMAIN=${ROOT_DOMAIN}
-      #- LOG_LEVEL=debug
-    logging:
-      options:
-        max-size: 10m
-    networks:
-      - web
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.services.traefik-forward-auth-web.loadbalancer.server.port=4181"
-      # HTTP
-      - "traefik.http.routers.traefik-forward-auth-web.rule=Host(`${AUTH_DOMAIN}`) || Host(`www.${AUTH_DOMAIN}`)"
-      - "traefik.http.routers.traefik-forward-auth-web.entrypoints=web"
-      # HTTPS
-      - "traefik.http.routers.traefik-forward-auth-secured.rule=Host(`${AUTH_DOMAIN}`) || Host(`www.${AUTH_DOMAIN}`)"
-      - "traefik.http.routers.traefik-forward-auth-secured.entrypoints=web-secured"
-      - "traefik.http.routers.traefik-forward-auth-secured.tls.certresolver=tlschallenge"
-      # Auth middleware
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+  # traefik-forward-auth:
+  #   restart: always
+  #   image: thomseddon/traefik-forward-auth:2
+  #   environment:
+  #     - DEFAULT_PROVIDER=oidc
+  #     - PROVIDERS_OIDC_ISSUER_URL=${OIDC_ISSUER_URL}
+  #     - PROVIDERS_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+  #     - PROVIDERS_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+  #     - SECRET=${SECRET}
+  #     - AUTH_HOST=${AUTH_DOMAIN}
+  #     - COOKIE_DOMAIN=${ROOT_DOMAIN}
+  #     #- LOG_LEVEL=debug
+  #   logging:
+  #     options:
+  #       max-size: 10m
+  #   networks:
+  #     - web
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.docker.network=web"
+  #     - "traefik.http.services.traefik-forward-auth-web.loadbalancer.server.port=4181"
+  #     # HTTP
+  #     - "traefik.http.routers.traefik-forward-auth-web.rule=Host(`${AUTH_DOMAIN}`) || Host(`www.${AUTH_DOMAIN}`)"
+  #     - "traefik.http.routers.traefik-forward-auth-web.entrypoints=web"
+  #     # HTTPS
+  #     - "traefik.http.routers.traefik-forward-auth-secured.rule=Host(`${AUTH_DOMAIN}`) || Host(`www.${AUTH_DOMAIN}`)"
+  #     - "traefik.http.routers.traefik-forward-auth-secured.entrypoints=web-secured"
+  #     - "traefik.http.routers.traefik-forward-auth-secured.tls.certresolver=tlschallenge"
+  #     # Auth middleware
+  #     - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+  #     - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
 
 networks:
   web:
