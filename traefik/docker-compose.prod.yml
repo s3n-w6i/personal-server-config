@@ -5,6 +5,7 @@ services:
     restart: always
     image: traefik:v2.7
     command:
+      - export CERTIFICATE_EMAIL=$(cat /run/secrets/traefik_certificate-email) &&
       - traefik
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
@@ -13,7 +14,7 @@ services:
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
-      - --certificatesresolvers.tlschallenge.acme.email=$(cat /run/secrets/traefik_certificate-email) # <== Setting email for certs
+      - --certificatesresolvers.tlschallenge.acme.email=${CERTIFICATE_EMAIL} # <== Setting email for certs
       - --certificatesresolvers.tlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert informationcertificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.tlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       # Logging for fail2ban
