@@ -23,7 +23,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.tcp.services.resolve-db.loadbalancer.server.port=5432"
-      - "traefik.tcp.routers.resolve-db.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
+      - "traefik.tcp.routers.resolve-db.rule=Host(`${DOMAINS_RESOLVEDB}.${DOMAINS_BASE}`)"
       - "traefik.tcp.routers.resolve-db.entrypoints=pgsql"
       - "traefik.tcp.routers.resolve-db.service=resolve-db"
 
