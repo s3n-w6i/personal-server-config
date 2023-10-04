@@ -17,9 +17,6 @@ services:
     logging:
       options:
         max-size: 10m
-    env_file:
-      - .env
-      - ../.env
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"

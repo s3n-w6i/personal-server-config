@@ -15,9 +15,6 @@ services:
     secrets:
       - resolve-db_username
       - resolve-db_password
-    env_file:
-      - .env
-      - ../.env
     environment:
       POSTGRES_DB: resolve-db
       POSTGRES_USER_FILE: /run/secrets/resolve-db_username
