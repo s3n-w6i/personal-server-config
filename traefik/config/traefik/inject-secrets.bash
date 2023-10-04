@@ -1,0 +1,1 @@
+export CERTIFICATE_EMAIL=$(cat /run/secrets/traefik_certificate-email)
