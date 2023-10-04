@@ -8,7 +8,6 @@ services:
     image: vaultwarden/server:latest
     volumes:
       - vaultwarden:/data/
-      - ./config/vaultwarden/scripts/:/etc/vaultwarden.d
     restart: always
     networks:
       - web
