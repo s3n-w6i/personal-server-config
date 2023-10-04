@@ -26,6 +26,7 @@ services:
       - "traefik.tcp.routers.resolve-db.rule=HostSNI(`${DOMAINS_RESOLVEDB}.${DOMAINS_BASE}`)"
       - "traefik.tcp.routers.resolve-db.entrypoints=pgsql"
       - "traefik.tcp.routers.resolve-db.service=resolve-db"
+      - "traefik.tcp.routers.resolve-db.tls.certresolver=tlschallenge"
 
 secrets:
   resolve-db_username:
