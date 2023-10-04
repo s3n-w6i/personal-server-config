@@ -10,7 +10,7 @@ services:
       # Entrypoints
       - --entrypoints.web.address=:80
       - --entrypoints.web-secured.address=:443
-      - --entrypoints.pgsql.adress=:5432
+      - --entrypoints.pgsql.address=:5432
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
