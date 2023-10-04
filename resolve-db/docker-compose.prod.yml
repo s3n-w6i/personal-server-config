@@ -22,14 +22,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.resolve-db-web.loadbalancer.server.url=http://resolve-db:5432"
-      # HTTP
-      - "traefik.http.routers.resolve-db-web.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.resolve-db-web.entrypoints=web"
-      # HTTPS
-      - "traefik.http.routers.resolve-db-secured.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.resolve-db-secured.entrypoints=web-secured"
-      - "traefik.http.routers.resolve-db-secured.tls.certresolver=tlschallenge"
+      - "traefik.tcp.services.resolve-db.loadbalancer.server.port=5432"
+      - "traefik.tcp.routers.resolve-db.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
+      - "traefik.tcp.routers.resolve-db.entrypoints=pgsql"
+      - "traefik.tcp.routers.resolve-db.service=resolve-db"
 
 secrets:
   resolve-db_username:
