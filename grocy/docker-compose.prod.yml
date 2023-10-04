@@ -22,10 +22,10 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.grocy-web.loadbalancer.server.url=http://grocy:80"
       # HTTP
-      - "traefik.http.routers.grocy-web.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-web.rule=Host(`${DOMAINS_GROCY}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_GROCY}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.grocy-web.entrypoints=web"
       # HTTPS
-      - "traefik.http.routers.grocy-secured.rule=Host(`${GROCY_DOMAIN}`) || Host(`www.${GROCY_DOMAIN}`)"
+      - "traefik.http.routers.grocy-secured.rule=Host(`${DOMAINS_GROCY}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_GROCY}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.grocy-secured.entrypoints=web-secured"
       - "traefik.http.routers.grocy-secured.tls.certresolver=tlschallenge"
 
