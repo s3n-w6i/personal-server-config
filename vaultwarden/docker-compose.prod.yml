@@ -27,9 +27,11 @@ services:
       SMTP_USERNAME_FILE: /run/secrets/mail_smtp_username
       SMTP_PASSWORD_FILE: /run/secrets/mail_smtp_password
       ADMIN_TOKEN_FILE: /run/secrets/vaultwarden_admin-token
+      DOMAIN: https://${DOMAINS_VAULTWARDEN}.${DOMAINS_BASE}
+    env_file:
+      - .env
+      - ../.env
     secrets:
-      - domains_base
-      - domains_vaultwarden
       - mail_smtp_host
       - mail_smtp_from
       - mail_smtp_port
@@ -76,10 +78,6 @@ networks:
   db:
 
 secrets:
-  domains_base:
-    file: ../secrets/domains_base
-  domains_vaultwarden:
-    file: ../secrets/domains_vaultwarden
   mail_smtp_host:
     file: ../secrets/mail_smtp_host
   mail_smtp_from:

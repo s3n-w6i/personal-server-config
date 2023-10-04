@@ -13,17 +13,21 @@ services:
       options:
         max-size: 20m
     secrets:
-      - username
-      - password
+      - resolve-db_username
+      - resolve-db_password
+    env_file:
+      - .env
+      - ../.env
     environment:
       POSTGRES_DB: resolve-db
-      POSTGRES_USER: /run/secrets/username
-      POSTGRES_PASSWORD: /run/secrets/password
+      POSTGRES_USER_FILE: /run/secrets/resolve-db_username
+      POSTGRES_PASSWORD_FILE: /run/secrets/resolve-db_password
 
 secrets:
-  username:
-    environment: 
-  password:
+  resolve-db_username:
+    file: ../secrets/resolve-db_username
+  resolve-db_password:
+    file: ../secrets/resolve-db_password
 
 volumes:
   vaultwarden:
