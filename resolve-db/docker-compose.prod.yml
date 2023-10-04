@@ -22,6 +22,17 @@ services:
       POSTGRES_DB: resolve-db
       POSTGRES_USER_FILE: /run/secrets/resolve-db_username
       POSTGRES_PASSWORD_FILE: /run/secrets/resolve-db_password
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.resolve-db-web.loadbalancer.server.url=http://resolve-db:5432"
+      # HTTP
+      - "traefik.http.routers.resolve-db-web.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.resolve-db-web.entrypoints=web"
+      # HTTPS
+      - "traefik.http.routers.resolve-db-secured.rule=Host(`${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_RESOLVE-DB}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.resolve-db-secured.entrypoints=web-secured"
+      - "traefik.http.routers.resolve-db-secured.tls.certresolver=tlschallenge"
 
 secrets:
   resolve-db_username:
@@ -30,7 +41,6 @@ secrets:
     file: ../secrets/resolve-db_password
 
 volumes:
-  vaultwarden:
   db:
 
 networks:
