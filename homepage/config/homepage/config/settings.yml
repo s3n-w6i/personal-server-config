@@ -2,3 +2,4 @@ base: {{ HOMEPAGE_VAR_BASE_URL }}
 title: Dashboard
 language: de
 target: _blank
+headerStyle: clean
