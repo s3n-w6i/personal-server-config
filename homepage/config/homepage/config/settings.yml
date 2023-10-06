@@ -1,1 +1,4 @@
+base: {{ HOMEPAGE_VAR_DOMAINS_BASE }}
 title: Dashboard
+language: de
+target: _blank
