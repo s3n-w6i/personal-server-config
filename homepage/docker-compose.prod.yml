@@ -5,8 +5,8 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
-      - ./config/homepage/config/settings.yml:/app/config/settings.yaml:ro
-      - ./config/homepage/config/docker.yml:/app/config/docker.yaml:ro
+      - ./config/homepage/config/settings.yml:/app/config/settings.yaml
+      - ./config/homepage/config/docker.yml:/app/config/docker.yaml
       - ./config/homepage/public:/app/public
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
