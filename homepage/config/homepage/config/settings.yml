@@ -6,8 +6,10 @@ headerStyle: clean
 layout:
   Produktivität:
     tab: Services
+    style: row
   Sonstige:
     tab: Services
+    style: row
   Server-Management:
     tab: Server-Management
     header: false
