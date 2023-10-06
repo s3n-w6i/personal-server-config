@@ -31,7 +31,6 @@ services:
       # Homepage
       - homepage.group=Sonstige
       - homepage.name=Grocy
-      - homepage.icon=grocy.svg
       - homepage.href=https://${DOMAINS_GROCY}.${DOMAINS_BASE}
       - homepage.description=Lebensmittelverwaltung
 
