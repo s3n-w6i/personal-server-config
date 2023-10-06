@@ -7,9 +7,11 @@ layout:
   Produktivität:
     tab: Services
     style: row
+    columns: 4
   Sonstige:
     tab: Services
     style: row
+    columns: 4
   Server-Management:
     tab: Server-Management
     header: false
