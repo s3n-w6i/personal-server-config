@@ -1,7 +1,10 @@
 - logo:
+
 - search:
-  provider: [ duckduckgo, brave, google ]
+    provider: [duckduckgo, brave, google]
+    target: _blank
+
 - resources:
-  cpu: true
-  memory: true
-  disk: /dev/sda1
+    cpu: true
+    memory: true
+    disk: /
