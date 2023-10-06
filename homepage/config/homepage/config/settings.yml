@@ -3,3 +3,10 @@ title: Dashboard
 language: de
 target: _blank
 headerStyle: clean
+layout:
+  Produktivität:
+    tab: Services
+  Sonstige:
+    tab: Services
+  Server-Management:
+    tab: Server-Management

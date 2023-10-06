@@ -30,6 +30,11 @@ services:
       - "traefik.http.routers.homepage-secured.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
       - "traefik.http.routers.homepage-secured.entrypoints=web-secured"
       - "traefik.http.routers.homepage-secured.tls.certresolver=tlschallenge"
+      # Homepage
+      - homepage.group=Server-Management
+      - homepage.name=Homepage
+      - homepage.href=https://${DOMAINS_BASE}
+      - homepage.description=Diese Dashboard-Seite
 
 networks:
   web:
