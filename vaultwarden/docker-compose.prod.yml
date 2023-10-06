@@ -51,7 +51,7 @@ services:
       # Homepage
       - homepage.group=Produktivität
       - homepage.name=Vault
-      - homepage.icon=vaultwarden.svg
+      - homepage.icon=/icons/vaultwarden.svg
       - homepage.href=https://${DOMAINS_VAULTWARDEN}.${DOMAINS_BASE}
       - homepage.description=Passwortmanager
 
