@@ -44,6 +44,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      # Homepage
+      - homepage.group=Server-Management
+      - homepage.name=Traefik
+      - homepage.description=Reverse Proxy
 
   fail2ban:
     restart: always
