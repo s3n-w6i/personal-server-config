@@ -1,4 +1,4 @@
-base: {{ HOMEPAGE_VAR_DOMAINS_BASE }}
+base: {{ HOMEPAGE_VAR_BASE_URL }}
 title: Dashboard
 language: de
 target: _blank

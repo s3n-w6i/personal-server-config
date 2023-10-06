@@ -13,7 +13,7 @@ services:
     environment:
       PUID: 1000
       GUID: 1000
-      HOMEPAGE_VAR_DOMAINS_BASE: ${DOMAINS_BASE}
+      HOMEPAGE_VAR_BASE_URL: https://${DOMAINS_BASE}
     volumes:
       - ./config/homepage/config/bookmarks.yml:/app/config/bookmarks.yaml
       - ./config/homepage/config/docker.yml:/app/config/docker.yaml
