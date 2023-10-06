@@ -17,6 +17,7 @@ services:
       - ./config/homepage/config/docker.yml:/app/config/docker.yaml
       - ./config/homepage/config/services.yml:/app/config/services.yaml
       - ./config/homepage/config/settings.yml:/app/config/settings.yaml
+      - ./config/homepage/config/widgets.yml:/app/config/widgets.yaml
       - ./config/homepage/public:/app/public
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
