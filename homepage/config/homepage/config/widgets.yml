@@ -1,2 +1,7 @@
+- logo:
 - search:
   provider: [ duckduckgo, brave, google ]
+- resources:
+  cpu: true
+  memory: true
+  disk: /dev/sda1
