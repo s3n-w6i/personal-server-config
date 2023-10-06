@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    volumes:
+      - ./config/homepage/config:/app/config
+      - ./config/homepage/public:/app/public
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
+    networks:
+      - web
+    logging:
+      options:
+        max-size: 50m
+    environment:
+      PUID: 1000
+      GUID: 1000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.homepage-web.loadbalancer.server.url=http://homepage:3000"
+      # HTTP
+      - "traefik.http.routers.homepage-web.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.homepage-web.entrypoints=web"
+      # HTTPS
+      - "traefik.http.routers.homepage-secured.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.homepage-secured.entrypoints=web-secured"
+      - "traefik.http.routers.homepage-secured.tls.certresolver=tlschallenge"
+
+networks:
+  web:
+    external: true
