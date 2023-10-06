@@ -10,3 +10,4 @@ layout:
     tab: Services
   Server-Management:
     tab: Server-Management
+    header: false
