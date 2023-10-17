@@ -15,6 +15,7 @@ services:
     entrypoint: "/etc/ocis/custom-entrypoint.sh"
     secrets:
       - ocis_jwt-secret
+      - ocis_transfer-secret
     volumes:
       - ./config/ocis/scripts/inject-secrets.sh:/etc/ocis/custom-entrypoint.sh
       - ./config/ocis/configs:/etc/ocis
@@ -22,6 +23,7 @@ services:
     environment:
       - PROXY_TLS=false
       - OCIS_CONFIG_DIR=/etc/ocis/
+      - OCIS_DOMAIN=${DOMAINS_OCIS}.${DOMAINS_BASE}
       - SEARCH_EXTRACTOR_TYPE=tika
       - SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://tika
       - FRONTEND_FULL_TEXT_SEARCH_ENABLED=true
@@ -67,3 +69,5 @@ volumes:
 secrets:
   ocis_jwt-secret:
     file: ../secrets/ocis_jwt-secret
+  ocis_transfer-secret:
+    file: ../secrets/ocis_transfer-secret
