@@ -12,10 +12,11 @@ services:
       - web
       - tika
       - appprovider
+    entrypoint: ["/etc/inject-secrets.bash &&", "/usr/bin/ocis"]
     secrets:
       - ocis_jwt-secret
     volumes:
-      - ./config/ocis/scripts/inject-secrets.bash:/etc/server.d/inject-secrets.bash
+      - ./config/ocis/scripts/inject-secrets.bash:/etc/inject-secrets.bash
       - ./config/ocis/configs:/etc/ocis
       - ocis-data:/var/lib/ocis
     environment:
