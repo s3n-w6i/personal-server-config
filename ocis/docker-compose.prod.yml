@@ -64,5 +64,5 @@ volumes:
   ocis-data:
 
 secrets:
-  ocis_jwt_secret:
+  ocis_jwt-secret:
     file: ../secrets/ocis_jwt-secret
