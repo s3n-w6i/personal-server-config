@@ -12,8 +12,11 @@ services:
       - web
       - tika
       - appprovider
+    secrets:
+      - ocis_jwt-secret
     volumes:
-      - ./config/ocis:/etc/ocis
+      - ./config/ocis/scripts/inject-secrets.bash:/etc/ocis.d/inject-secrets.bash
+      - ./config/ocis/configs:/etc/ocis
       - ocis-data:/var/lib/ocis
     environment:
       - PROXY_TLS=false
@@ -59,3 +62,7 @@ networks:
 volumes:
   ocis-config:
   ocis-data:
+
+secrets:
+  ocis_jwt_secret:
+    file: ../secrets/ocis_jwt-secret
