@@ -1,5 +1,0 @@
-log:
-  level: info
-  color: true
-  pretty: true
-  file: /var/tmp/ocis_output.log

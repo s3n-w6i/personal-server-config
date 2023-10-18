@@ -17,11 +17,12 @@ services:
       - ocis_idm-admin-password
     volumes:
       - ./config/ocis/scripts/inject-secrets.sh:/custom-entrypoint.sh
-      - ./config/ocis/configs:/etc/ocis
+      - ocis-config:/etc/ocis
       - ocis-data:/var/lib/ocis
     environment:
       - PROXY_TLS=false
       - OCIS_CONFIG_DIR=/etc/ocis/
+      - OCIS_LOG_LEVEL=info
       - OCIS_DOMAIN=${DOMAINS_OCIS}.${DOMAINS_BASE}
       - SEARCH_EXTRACTOR_TYPE=tika
       - SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://tika
