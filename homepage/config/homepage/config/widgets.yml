@@ -1,4 +1,5 @@
 - logo:
+    icon: /icons/logo.svg
 
 - search:
     provider: [duckduckgo, brave, google]
