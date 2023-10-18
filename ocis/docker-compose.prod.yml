@@ -12,7 +12,7 @@ services:
       - web
       - tika
       - appprovider
-    entrypoint: "/etc/ocis/custom-entrypoint.sh"
+    entrypoint: "/custom-entrypoint.sh"
     secrets:
       - ocis_jwt-secret
       - ocis_transfer-secret
@@ -20,7 +20,7 @@ services:
       - ocis_storage-system-user-id
       - ocis_storage-system-api-key
     volumes:
-      - ./config/ocis/scripts/inject-secrets.sh:/etc/ocis/custom-entrypoint.sh
+      - ./config/ocis/scripts/inject-secrets.sh:/custom-entrypoint.sh
       - ./config/ocis/configs:/etc/ocis
       - ocis-data:/var/lib/ocis
     environment:
