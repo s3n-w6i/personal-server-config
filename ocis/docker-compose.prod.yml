@@ -17,6 +17,8 @@ services:
       - ocis_jwt-secret
       - ocis_transfer-secret
       - ocis_machine-auth-api-key
+      - ocis_storage-system-user-id
+      - ocis_storage-system-api-key
     volumes:
       - ./config/ocis/scripts/inject-secrets.sh:/etc/ocis/custom-entrypoint.sh
       - ./config/ocis/configs:/etc/ocis
@@ -74,3 +76,7 @@ secrets:
     file: ../secrets/ocis_transfer-secret
   ocis_machine-auth-api-key:
     file: ../secrets/ocis_machine-auth-api-key
+  ocis_storage-system-user-id:
+    file: ../secrets/ocis_storage-system-user-id
+  ocis_storage-system-api-key:
+    file: ../secrets/ocis_storage-system-api-key
