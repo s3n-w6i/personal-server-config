@@ -32,6 +32,7 @@ services:
       - homepage.group=Server-Management
       - homepage.name=Resolve DB
       - homepage.description=Datenbank für DaVinci Resolve
+      - homepage.icon=si-postgresql
 
 secrets:
   resolve-db_username:

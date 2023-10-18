@@ -48,6 +48,7 @@ services:
       - homepage.group=Server-Management
       - homepage.name=Traefik
       - homepage.description=Reverse Proxy
+      - homepage.icon=si-traefikproxy
 
   fail2ban:
     restart: always
