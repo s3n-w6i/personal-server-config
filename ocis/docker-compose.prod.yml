@@ -19,6 +19,7 @@ services:
       - ocis_machine-auth-api-key
       - ocis_storage-system-user-id
       - ocis_storage-system-api-key
+      - ocis_idm-admin-password
     volumes:
       - ./config/ocis/scripts/inject-secrets.sh:/custom-entrypoint.sh
       - ./config/ocis/configs:/etc/ocis
@@ -80,3 +81,5 @@ secrets:
     file: ../secrets/ocis_storage-system-user-id
   ocis_storage-system-api-key:
     file: ../secrets/ocis_storage-system-api-key
+  ocis_idm-admin-password:
+    file: ../secrets/ocis_idm-admin-password
