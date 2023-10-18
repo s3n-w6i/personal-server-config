@@ -80,7 +80,6 @@ services:
       - /bin/sh
       - /entrypoint-override.sh
     environment:
-      WOPISECRET: ${WOPI_JWT_SECRET:-LoremIpsum567}
       WOPISERVER_DOMAIN: wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}
     secrets:
       - ocis_wopi_secret
@@ -139,7 +138,7 @@ services:
     volumes:
       - ./config/ocis-appprovider-onlyoffice/entrypoint-override.sh:/entrypoint-override.sh:ro
       - ocis-config:/etc/ocis
-  
+
   # Onlyoffice - Web Office
   onlyoffice:
     image: onlyoffice/documentserver:7.5
