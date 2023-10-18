@@ -4,6 +4,7 @@ title: Dashboard
 language: de
 target: _blank
 headerStyle: clean
+favicon: /icons/logo.svg
 layout:
   Produktivität:
     tab: Services
