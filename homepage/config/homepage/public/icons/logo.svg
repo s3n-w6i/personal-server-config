@@ -7,8 +7,8 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3279 36.971L47.5 68L83.3133 20.0437C77.4038 17.4435 70.8705 16 64 16C47.5145 16 32.9701 24.3107 24.3279 36.971Z" fill="white" fill-opacity="0.7"/>
 <defs>
 <linearGradient id="paint0_linear_1_26" x1="16" y1="16" x2="112" y2="112" gradientUnits="userSpaceOnUse">
-<stop stop-color="#B5DDF4"/>
-<stop offset="1" stop-color="#69AFF0"/>
+<stop stop-color="#DEF2FE"/>
+<stop offset="1" stop-color="#62ACF1"/>
 </linearGradient>
 </defs>
 </svg>
