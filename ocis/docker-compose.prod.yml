@@ -14,11 +14,6 @@ services:
       - appprovider
     entrypoint: "/custom-entrypoint.sh"
     secrets:
-      - ocis_jwt-secret
-      - ocis_transfer-secret
-      - ocis_machine-auth-api-key
-      - ocis_storage-system-user-id
-      - ocis_storage-system-api-key
       - ocis_idm-admin-password
     volumes:
       - ./config/ocis/scripts/inject-secrets.sh:/custom-entrypoint.sh
@@ -71,15 +66,5 @@ volumes:
   ocis-data:
 
 secrets:
-  ocis_jwt-secret:
-    file: ../secrets/ocis_jwt-secret
-  ocis_transfer-secret:
-    file: ../secrets/ocis_transfer-secret
-  ocis_machine-auth-api-key:
-    file: ../secrets/ocis_machine-auth-api-key
-  ocis_storage-system-user-id:
-    file: ../secrets/ocis_storage-system-user-id
-  ocis_storage-system-api-key:
-    file: ../secrets/ocis_storage-system-api-key
   ocis_idm-admin-password:
     file: ../secrets/ocis_idm-admin-password
