@@ -26,9 +26,9 @@ services:
       - OCIS_LOG_LEVEL=warning
       - OCIS_DOMAIN=${DOMAINS_OCIS}.${DOMAINS_BASE}
       - OCIS_URL=https://${DOMAINS_OCIS}.${DOMAINS_BASE}
-      # - SEARCH_EXTRACTOR_TYPE=tika
-      # - SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://tika:9998
-      # - FRONTEND_FULL_TEXT_SEARCH_ENABLED=true
+      - SEARCH_EXTRACTOR_TYPE=tika
+      - SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://tika:9998
+      - FRONTEND_FULL_TEXT_SEARCH_ENABLED=true
       - IDM_CREATE_DEMO_USERS=false
     labels:
       - "traefik.enable=true"
