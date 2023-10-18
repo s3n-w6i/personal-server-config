@@ -3,7 +3,7 @@ version: "3"
 services:
 
   ocis:
-    image: owncloud/ocis
+    image: owncloud/ocis:4
     restart: always
     logging:
       options:
