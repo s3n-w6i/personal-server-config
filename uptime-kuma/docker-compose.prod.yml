@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    restart: always
+    environment:
+      DATA_DIR: /app/data/
+      UPTIME_KUMA_PORT: 3001
+    volumes:
+      - data:/app/data
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.uptime-kuma-web.loadbalancer.server.url=http://uptime-kuma:3001"
+      # HTTP
+      - "traefik.http.routers.uptime-kuma-web.rule=Host(`${DOMAINS_UPTIME_KUMA}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_UPTIME_KUMA}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.uptime-kuma-web.entrypoints=web"
+      # HTTPS
+      - "traefik.http.routers.uptime-kuma-secured.rule=Host(`${DOMAINS_UPTIME_KUMA}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_UPTIME_KUMA}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.uptime-kuma-secured.entrypoints=web-secured"
+      - "traefik.http.routers.uptime-kuma-secured.tls.certresolver=tlschallenge"
+      # Homepage
+      - homepage.group=Server-Management
+      - homepage.name=Uptime Kuma
+      - homepage.icon=si-uptimekuma
+      - homepage.href=https://${DOMAINS_UPTIME_KUMA}.${DOMAINS_BASE}
+      - homepage.description=Status-Seite
+
+volumes:
+  data:
+
+networks:
+  web:
+    external: true
