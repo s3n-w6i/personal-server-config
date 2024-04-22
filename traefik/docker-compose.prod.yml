@@ -3,7 +3,7 @@ version: "3"
 services:
   traefik:
     restart: always
-    image: traefik:v2.10
+    image: traefik:v3.0
     command:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
