@@ -3,7 +3,7 @@ version: "3"
 services:
 
   ocis:
-    image: owncloud/ocis:6
+    image: owncloud/ocis:5
     restart: always
     logging:
       options:
@@ -107,7 +107,7 @@ services:
       - homepage.description=Office-Connector zwischen Cloud und Onlyoffice
 
   ocis-appprovider-onlyoffice:
-    image: owncloud/ocis:6
+    image: owncloud/ocis:5
     restart: always
     logging:
       options:
