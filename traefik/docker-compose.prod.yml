@@ -27,7 +27,6 @@ services:
     ports:
       - "80:80" # http
       - "443:443" # https
-      - "5432:5432" # pgsql
     volumes:
       - ./config/traefik/inject-secrets.bash:/etc/traefik.d/inject-secrets.bash
       - traefik-certs:/letsencrypt
