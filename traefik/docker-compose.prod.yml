@@ -37,9 +37,6 @@ services:
       - web
     secrets:
       - traefik_certificate-email
-    logging:
-      options:
-        max-size: 10m
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
@@ -57,9 +54,6 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    logging:
-      options:
-        max-size: 10m
     volumes:
       - /var/log/traefik:/var/log/traefik:ro
       - ./netdata/fail2ban/log:/var/log/fail2ban.log
