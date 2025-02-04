@@ -14,6 +14,7 @@ services:
       SUPER_USER: admin
       SUPER_PASS_FILE: /run/secrets/etebase_admin-password
       DB_ENGINE: sqlite
+      ALLOWED_HOSTS: ${DOMAINS_ETEBASE}.${DOMAINS_BASE},www.${DOMAINS_ETEBASE}.${DOMAINS_BASE}
     secrets:
       - etebase_admin-password
     labels:
