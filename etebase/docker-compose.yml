@@ -12,20 +12,19 @@ services:
     environment:
       SERVER: http-socket
       SUPER_USER: admin
-    env_file:
-      - ./.env
-    logging:
-      options:
-        max-size: 10m
+      SUPER_PASS_FILE: /run/secrets/etebase_admin-password
+      DB_ENGINE: sqlite
+    secrets:
+      - etebase_admin-password
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.http.services.etebase-web.loadbalancer.server.url=http://etebase:3735"
       # HTTP
-      - "traefik.http.routers.etebase-web.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.etebase-web.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
       - "traefik.http.routers.etebase-web.entrypoints=web"
       # HTTPS
-      - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
       - "traefik.http.routers.etebase-secured.entrypoints=web-secured"
       - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"
 
@@ -35,3 +34,7 @@ networks:
 
 volumes:
   etebase-data:
+
+secrets:
+  etebase_admin-password:
+    file: ../secrets/etebase_admin-password
