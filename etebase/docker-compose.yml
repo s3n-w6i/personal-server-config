@@ -21,10 +21,10 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.etebase-web.loadbalancer.server.url=http://etebase:3735"
       # HTTP
-      - "traefik.http.routers.etebase-web.rule=Host(`${DOMAINS_ETEBASE}`) || Host(`www.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.etebase-web.rule=Host(`${DOMAINS_ETEBASE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_ETEBASE}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.etebase-web.entrypoints=web"
       # HTTPS
-      - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAINS_ETEBASE}`) || Host(`www.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAINS_ETEBASE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_ETEBASE}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.etebase-secured.entrypoints=web-secured"
       - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"
       # Homepage
