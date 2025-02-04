@@ -31,7 +31,7 @@ services:
       - homepage.group=Sonstige
       - homepage.name=Etebase
       - homepage.href=https://${DOMAINS_ETEBASE}.${DOMAINS_BASE}
-      - homepage.description=Lebensmittelverwaltung
+      - homepage.description=Kalendersynchronisierung
 
 networks:
   web:
