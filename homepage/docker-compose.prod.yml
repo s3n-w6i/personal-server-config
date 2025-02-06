@@ -19,7 +19,7 @@ services:
       - ./config/homepage/config/settings.yml:/app/config/settings.yaml
       - ./config/homepage/config/widgets.yml:/app/config/widgets.yaml
       - ./config/homepage/public/icons:/app/public/icons:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /run/user/1000/docker.sock:/var/run/docker.sock:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
