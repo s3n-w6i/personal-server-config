@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   anonaddy:
     image: anonaddy/anonaddy:latest
