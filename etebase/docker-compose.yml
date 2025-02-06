@@ -15,6 +15,7 @@ services:
       SUPER_PASS_FILE: /run/secrets/etebase_admin-password
       DB_ENGINE: sqlite
       ALLOWED_HOSTS: ${DOMAINS_ETEBASE}.${DOMAINS_BASE},www.${DOMAINS_ETEBASE}.${DOMAINS_BASE}
+      ETEBASE_EASY_CONFIG_PATH: /etebase/config/etebase-server.ini # store outside data folder, so that it is re-generated
     secrets:
       - etebase_admin-password
     labels:
