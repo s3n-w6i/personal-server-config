@@ -194,4 +194,4 @@ secrets:
   ocis_idm-admin-password:
     file: ../secrets/ocis_idm-admin-password
   ocis_wopi_secret:
-    file: ../secrets/ocis_wopi_secret
+    file: ../secrets/ocis_wopi-secret
