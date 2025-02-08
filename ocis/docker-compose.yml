@@ -1,7 +1,7 @@
 services:
 
   ocis:
-    image: owncloud/ocis:5
+    image: owncloud/ocis:7
     restart: always
     logging:
       options:
@@ -72,78 +72,50 @@ services:
   # OFFICE
   # ---------------------------------
 
-  wopiserver:
-    image: cs3org/wopiserver:${WOPISERVER_DOCKER_TAG:-v10.1.0}
+  collaboration-oo:
+    image: owncloud/ocis:7
     networks:
       - office
+    depends_on:
+      ocis:
+        condition: service_started
+      onlyoffice:
+        condition: service_healthy
     entrypoint:
       - /bin/sh
-      - /entrypoint-override.sh
+    command: [ "-c", "ocis collaboration server" ]
     environment:
-      WOPISERVER_DOMAIN: wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}
-    secrets:
-      - ocis_wopi_secret
+      COLLABORATION_GRPC_ADDR: 0.0.0.0:9301
+      COLLABORATION_HTTP_ADDR: 0.0.0.0:9300
+      MICRO_REGISTRY: "nats-js-kv"
+      MICRO_REGISTRY_ADDRESS: "ocis:9233"
+      COLLABORATION_WOPI_SRC: https://wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}
+      COLLABORATION_APP_NAME: "OnlyOffice"
+      COLLABORATION_APP_PRODUCT: "OnlyOffice"
+      COLLABORATION_APP_ADDR: https://wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}
+      COLLABORATION_APP_ICON: https://wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}/web-apps/apps/documenteditor/main/resources/img/favicon.ico
+      COLLABORATION_APP_INSECURE: "${INSECURE:-true}"
+      COLLABORATION_CS3API_DATAGATEWAY_INSECURE: "${INSECURE:-true}"
+      COLLABORATION_LOG_LEVEL: ${LOG_LEVEL:-info}
+      COLLABORATION_APP_PROOF_DISABLE: "true"
+      OCIS_URL: https://${DOMAINS_OCIS}.${DOMAINS_BASE}
     volumes:
-      - ./config/wopiserver/entrypoint-override.sh:/entrypoint-override.sh:ro
-      - ./config/wopiserver/wopiserver.conf.dist:/etc/wopi/wopiserver.conf.dist:ro
-      - wopi-recovery:/var/spool/wopirecovery
+      # configure the .env file to use own paths instead of docker internal volumes
+      - ocis-config:/etc/ocis
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.services.wopiserver-web.loadbalancer.server.url=http://wopiserver:8800"
-      # HTTP
-      - "traefik.http.routers.wopiserver-web.rule=Host(`wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.wopiserver-web.entrypoints=web"
-      # HTTPS
-      - "traefik.http.routers.wopiserver-secured.rule=Host(`wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.wopiserver-secured.entrypoints=web-secured"
-      - "traefik.http.routers.wopiserver-secured.tls.certresolver=tlschallenge"
-      # Homepage
-      - homepage.group=Server-Management
-      - homepage.name=Cloud - Wopi-Server
-      - homepage.icon=mdi-server-outline
-      - homepage.description=Office-Connector zwischen Cloud und Onlyoffice
-
-  ocis-appprovider-onlyoffice:
-    image: owncloud/ocis:5
-    restart: always
+      - "traefik.http.routers.collaboration-oo.entrypoints=web-secured"
+      - "traefik.http.routers.collaboration-oo.rule=Host(`wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.collaboration-oo.tls.certresolver=http"
+      - "traefik.http.routers.collaboration-oo.service=collaboration-oo"
+      - "traefik.http.services.collaboration-oo.loadbalancer.server.port=9300"
     logging:
-      options:
-        max-size: 50m
-    user: "0"
-    entrypoint:
-      - /bin/sh
-      - /entrypoint-override.sh
-    depends_on:
-      - onlyoffice
-      - wopiserver
-    networks:
-      - office
-    environment:
-      # use the internal service name of the gateway
-      REVA_GATEWAY: com.owncloud.api.gateway
-      APP_PROVIDER_GRPC_ADDR: 0.0.0.0:9164
-      APP_PROVIDER_SERVICE_NAME: app-provider-onlyoffice
-      # use the internal service name
-      APP_PROVIDER_EXTERNAL_ADDR: com.owncloud.api.app-provider-onlyoffice
-      APP_PROVIDER_DRIVER: wopi
-      APP_PROVIDER_WOPI_APP_NAME: OnlyOffice
-      APP_PROVIDER_WOPI_APP_ICON_URI: https://onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}/web-apps/apps/documenteditor/main/resources/img/favicon.ico
-      APP_PROVIDER_WOPI_APP_URL: https://onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}
-      APP_PROVIDER_WOPI_INSECURE: "${INSECURE:-false}"
-      APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL: https://wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}
-      APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL: https://${DOMAINS_OCIS}.${DOMAINS_BASE}
-      # share the registry with the ocis container
-      MICRO_REGISTRY: "mdns"
-      OCIS_SERVICE_ACCOUNT_ID: service-admin
-      OCIS_SERVICE_ACCOUNT_SECRET: ${OCIS_SERVICE_ACCOUNT_SECRET}
-    volumes:
-      - ./config/ocis-appprovider-onlyoffice/entrypoint-override.sh:/entrypoint-override.sh:ro
-      - ocis-config:/etc/ocis
+      driver: ${LOG_DRIVER:-local}
+    restart: always
 
   # Onlyoffice - Web Office
   onlyoffice:
-    image: onlyoffice/documentserver:7.5
+    image: onlyoffice/documentserver:8.2
     restart: always
     logging:
       options:
@@ -162,17 +134,14 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.onlyoffice-web.loadbalancer.server.url=http://onlyoffice:80"
-      # HTTP
-      - "traefik.http.routers.onlyoffice-web.rule=Host(`onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.onlyoffice-web.entrypoints=web"
+      - "traefik.http.services.onlyoffice.loadbalancer.server.url=http://onlyoffice:80"
       # HTTPS
-      - "traefik.http.routers.onlyoffice-secured.rule=Host(`onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.onlyoffice-secured.entrypoints=web-secured"
-      - "traefik.http.routers.onlyoffice-secured.tls.certresolver=tlschallenge"
+      - "traefik.http.routers.onlyoffice.rule=Host(`onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.onlyoffice.entrypoints=web-secured"
+      - "traefik.http.routers.onlyoffice.tls.certresolver=tlschallenge"
       # Without this, websockets don't work
       - "traefik.http.middlewares.onlyoffice.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.onlyoffice-secured.middlewares=onlyoffice"
+      - "traefik.http.routers.onlyoffice.middlewares=onlyoffice"
       # Homepage
       - homepage.group=Server-Management
       - homepage.name=Cloud - Onlyoffice
