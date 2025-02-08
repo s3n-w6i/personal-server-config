@@ -114,6 +114,8 @@ services:
   onlyoffice:
     image: onlyoffice/documentserver:8.2
     restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/hosting/discovery"]
     logging:
       options:
         max-size: 50m
