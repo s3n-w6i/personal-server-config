@@ -12,7 +12,6 @@ services:
       - office
     depends_on:
       - tika
-      - ocis-appprovider-onlyoffice
     entrypoint: "/custom-entrypoint.sh"
     secrets:
       - ocis_idm-admin-password
