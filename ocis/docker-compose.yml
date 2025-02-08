@@ -32,8 +32,6 @@ services:
       - SEARCH_EXTRACTOR_TIKA_TIKA_URL=http://tika:9998
       - FRONTEND_FULL_TEXT_SEARCH_ENABLED=true
       - IDM_CREATE_DEMO_USERS=false
-      - OCIS_SERVICE_ACCOUNT_ID=service-admin
-      - OCIS_SERVICE_ACCOUNT_SECRET=${OCIS_SERVICE_ACCOUNT_SECRET}
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
