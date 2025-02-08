@@ -33,10 +33,10 @@ services:
       - IDM_CREATE_DEMO_USERS=false
       # Onlyoffice
       # make the registry available to the app provider containers
-      - MICRO_REGISTRY_ADDRESS: 127.0.0.1:9233
-      - NATS_NATS_HOST: 0.0.0.0
-      - NATS_NATS_PORT: 9233
-      - ONLYOFFICE_DOMAIN: onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}
+      - MICRO_REGISTRY_ADDRESS=127.0.0.1:9233
+      - NATS_NATS_HOST=0.0.0.0
+      - NATS_NATS_PORT=9233
+      - ONLYOFFICE_DOMAIN=onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
