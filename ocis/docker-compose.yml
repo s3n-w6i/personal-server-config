@@ -37,6 +37,8 @@ services:
       - NATS_NATS_HOST=0.0.0.0
       - NATS_NATS_PORT=9233
       - ONLYOFFICE_DOMAIN=onlyoffice.${DOMAINS_OCIS}.${DOMAINS_BASE}
+      # make the REVA gateway accessible to the app drivers
+      - GATEWAY_GRPC_ADDR=0.0.0.0:9142
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
