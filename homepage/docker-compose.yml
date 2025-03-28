@@ -10,6 +10,7 @@ services:
         max-size: 50m
     environment:
       HOMEPAGE_VAR_BASEURL: https://${DOMAINS_BASE}
+      HOMEPAGE_ALLOWED_HOSTS: ${DOMAINS_BASE}
     volumes:
       - ./config/homepage/config/bookmarks.yml:/app/config/bookmarks.yaml
       - ./config/homepage/config/docker.yml:/app/config/docker.yaml
