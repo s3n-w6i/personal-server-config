@@ -17,3 +17,4 @@ layout:
   Server-Management:
     tab: Server-Management
     header: false
+    columns: 2
