@@ -44,8 +44,17 @@ services:
       - "traefik.http.routers.vaultwarden-secured.rule=Host(`${DOMAINS_VAULTWARDEN}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_VAULTWARDEN}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.vaultwarden-secured.entrypoints=web-secured"
       - "traefik.http.routers.vaultwarden-secured.tls.certresolver=tlschallenge"
-      # Auth
-      #- "traefik.http.routers.vaultwarden-secured.middlewares=traefik-forward-auth@docker"
+      # Security Headers
+      # HSTS
+      - traefik.http.middlewares.vaultwardenHeaders.headers.stsSeconds=15752000
+      - traefik.http.middlewares.vaultwardenHeaders.headers.stsIncludeSubdomains=true
+      - traefik.http.middlewares.vaultwardenHeaders.headers.stsPreload=true
+      - traefik.http.middlewares.vaultwardenHeaders.headers.forceSTSHeader=true
+      # Other headers
+      - "traefik.http.middlewares.vaultwardenHeaders.headers.framedeny=true"
+      - "traefik.http.middlewares.vaultwardenHeaders.headers.browserxssfilter=true"
+      # Apply headers
+      - traefik.http.routers.vaultwarden-secured.middlewares=vaultwardenHeaders
       # Homepage
       - homepage.group=Produktivität
       - homepage.name=Vault
