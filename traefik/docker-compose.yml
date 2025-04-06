@@ -6,9 +6,12 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       # Entrypoints
-      - --entrypoints.web.address=:80
-      - --entrypoints.web-secured.address=:443
-      - --entrypoints.web-secured.http3
+      - --entryPoints.web.address=:80
+      - --entryPoints.web-secured.address=:443
+      - --entryPoints.web-secured.http3
+      - --entryPoints.web-secured.http3.advertisedport=443
+      # Default middlewares
+      - --entryPoints.web.http.middlewares=https_redirect
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
@@ -20,8 +23,6 @@ services:
       - --accesslog.filepath=var/log/access.log
       - --accesslog.filters.statuscodes=400-499
       - --accesslog.bufferingsize=30
-      # Default middlewares
-      - --entrypoints.web.http.middlewares=https_redirect
     ports:
       - "80:80" # http
       - "443:443/tcp" # https
