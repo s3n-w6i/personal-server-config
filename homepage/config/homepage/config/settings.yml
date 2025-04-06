@@ -18,3 +18,4 @@ layout:
     tab: Server-Management
     header: false
     columns: 2
+    style: row
