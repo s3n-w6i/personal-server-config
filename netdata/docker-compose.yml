@@ -27,17 +27,6 @@ services:
       options:
         max-size: 100m
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.services.netdata-web.loadbalancer.server.url=http://netdata:19999"
-      # HTTPS
-      - "traefik.http.routers.netdata-secured.rule=Host(`${DOMAINS_NETDATA}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.netdata-secured.entrypoints=web-secured"
-      - "traefik.http.routers.netdata-secured.tls.certresolver=tlschallenge"
-      # Auth
-      - "traefik.http.middlewares.netdata-auth.basicauth.users=admin:${PASSWORD}"
-      - "traefik.http.routers.netdata-secured.middlewares=netdata-auth"
-      # Homepage
       - homepage.group=Server-Management
       - homepage.name=Netdata
       - homepage.description=Monitoring
