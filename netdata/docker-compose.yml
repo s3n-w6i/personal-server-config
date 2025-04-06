@@ -10,6 +10,10 @@ services:
       - apparmor:unconfined
     networks:
       - web
+    environment:
+      NETDATA_CLAIM_URL: https://app.netdata.cloud
+      NETDATA_CLAIM_TOKEN: ${NETDATA_CLAIM_TOKEN}
+      NETDATA_CLAIM_ROOMS: ${NETDATA_CLAIM_ROOMS}
     volumes:
       - ./netdataconfig/netdata:/etc/netdata
       - netdatalib:/var/lib/netdata
