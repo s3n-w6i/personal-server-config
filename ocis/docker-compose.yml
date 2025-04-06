@@ -111,7 +111,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.collaboration-oo.entrypoints=web-secured"
       - "traefik.http.routers.collaboration-oo.rule=Host(`wopiserver.${DOMAINS_OCIS}.${DOMAINS_BASE}`)"
-      - "traefik.http.routers.collaboration-oo.tls.certresolver=http"
+      - "traefik.http.routers.collaboration-oo.tls.certresolver=tlschallenge"
       - "traefik.http.routers.collaboration-oo.service=collaboration-oo"
       - "traefik.http.services.collaboration-oo.loadbalancer.server.port=9300"
     logging:
