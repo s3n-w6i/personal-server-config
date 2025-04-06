@@ -6,7 +6,7 @@ services:
       - db
       - redis
     volumes:
-      - "anonaddydata:/data"
+      - "data:/data"
     env_file:
       - "./.env.anonaddy"
     environment:
@@ -22,9 +22,7 @@ services:
       - db
       - redis
     ports:
-      - target: 25
-        published: 25
-        protocol: tcp
+      - 25:25/tcp
     logging:
       options:
         max-size: 100m
@@ -41,14 +39,14 @@ services:
       - "traefik.http.routers.anonaddy-secured.tls.certresolver=tlschallenge"
 
   db:
-    image: mariadb:10.5
+    image: mariadb:10
     restart: always
     command:
       - "mysqld"
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
     volumes:
-      - "anonaddydb:/var/lib/mysql"
+      - "db:/var/lib/mysql"
     networks:
       - db
     logging:
@@ -76,5 +74,5 @@ networks:
   redis:
 
 volumes:
-  anonaddydb:
-  anonaddydata:
+  db:
+  data:
