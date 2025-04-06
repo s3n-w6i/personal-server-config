@@ -37,6 +37,11 @@ services:
       # Auth
       - "traefik.http.middlewares.netdata-auth.basicauth.users=admin:${PASSWORD}"
       - "traefik.http.routers.netdata-secured.middlewares=netdata-auth"
+      # Homepage
+      - homepage.group=Server-Management
+      - homepage.name=Netdata
+      - homepage.description=Monitoring
+      - homepage.icon=si-netdata
 
 networks:
   web:

@@ -35,7 +35,7 @@ services:
       - homepage.name=Homepage
       - homepage.href=https://${DOMAINS_BASE}
       - homepage.description=Diese Dashboard-Seite
-      - homepage.icon=mdi-home-variant-outline
+      - homepage.icon=si-homepage
 
 networks:
   web:
