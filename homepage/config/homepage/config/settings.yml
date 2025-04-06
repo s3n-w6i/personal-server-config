@@ -5,6 +5,7 @@ language: de
 target: _blank
 headerStyle: clean
 favicon: /icons/logo_no-margin.svg
+useEqualHeights: true
 layout:
   Produktivität:
     tab: Services
