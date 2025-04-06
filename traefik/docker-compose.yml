@@ -8,7 +8,7 @@ services:
       # Entrypoints
       - --entrypoints.web.address=:80
       - --entrypoints.web-secured.address=:443
-      - --entrypoints.pgsql.address=:5432
+      - --entrypoints.web-secured.http3
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
@@ -24,7 +24,8 @@ services:
       - --entrypoints.web.http.middlewares=https_redirect
     ports:
       - "80:80" # http
-      - "443:443" # https
+      - "443:443/tcp" # https
+      - "443:443/udp" # http 3
     volumes:
       - ./config/traefik/inject-secrets.bash:/etc/traefik.d/inject-secrets.bash
       - traefik-certs:/letsencrypt
