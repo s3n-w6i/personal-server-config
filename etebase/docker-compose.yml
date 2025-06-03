@@ -26,6 +26,11 @@ services:
       - "traefik.http.routers.etebase-secured.rule=Host(`${DOMAINS_ETEBASE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_ETEBASE}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.etebase-secured.entrypoints=web-secured"
       - "traefik.http.routers.etebase-secured.tls.certresolver=tlschallenge"
+      # Security Headers
+      - "traefik.http.middlewares.etebase-headers.headers.contentSecurityPolicy=default-src 'self'"
+      # Apply headers
+      - traefik.http.routers.etebase-web.middlewares=etebase-headers
+      - traefik.http.routers.etebase-secured.middlewares=etebase-headers
       # Homepage
       - homepage.group=Produktivität
       - homepage.name=Etebase
