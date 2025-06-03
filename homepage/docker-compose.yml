@@ -30,6 +30,11 @@ services:
       - "traefik.http.routers.homepage-secured.rule=Host(`${DOMAINS_BASE}`) || Host(`www.${DOMAINS_BASE}`)"
       - "traefik.http.routers.homepage-secured.entrypoints=web-secured"
       - "traefik.http.routers.homepage-secured.tls.certresolver=tlschallenge"
+      # Security Headers
+      - "traefik.http.middlewares.homepage-headers.headers.contentSecurityPolicy=default-src 'self'"
+      # Apply headers
+      - traefik.http.routers.homepage-web.middlewares=homepage-headers
+      - traefik.http.routers.homepage-secured.middlewares=homepage-headers
       # Homepage
       - homepage.group=Server-Management
       - homepage.name=Homepage
