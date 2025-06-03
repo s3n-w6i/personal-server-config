@@ -11,7 +11,8 @@ services:
       - --entryPoints.web-secured.http3
       - --entryPoints.web-secured.http3.advertisedport=443
       # Default middlewares
-      - --entryPoints.web.http.middlewares=https_redirect
+      - --entryPoints.web.http.middlewares=compression,https_redirect,security-headers
+      - --entryPoints.web-secured.http.middlewares=compression,security-headers
       # Certificate
       # TLS Challenge for most services
       - --certificatesresolvers.tlschallenge.acme.tlschallenge=true
@@ -45,6 +46,13 @@ services:
       - homepage.name=Traefik
       - homepage.description=Reverse Proxy
       - homepage.icon=si-traefikproxy
+      # Compression
+      - "traefik.http.middlewares.compression.compress=true"
+      # Security Headers
+      - "traefik.http.middlewares.security-headers.headers.permissionsPolicy=accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), clipboard-write=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()"
+      - "traefik.http.middlewares.security-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.security-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.security-headers.headers.referrerPolicy=same-origin"
 
   fail2ban:
     restart: always
