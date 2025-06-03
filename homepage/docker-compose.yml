@@ -31,7 +31,7 @@ services:
       - "traefik.http.routers.homepage-secured.entrypoints=web-secured"
       - "traefik.http.routers.homepage-secured.tls.certresolver=tlschallenge"
       # Security Headers
-      - "traefik.http.middlewares.homepage-headers.headers.contentSecurityPolicy=default-src 'self'"
+      - "traefik.http.middlewares.homepage-headers.headers.contentSecurityPolicy=default-src 'self'; img-src 'self' cdn.jsdelivr.net"
       # Apply headers
       - traefik.http.routers.homepage-web.middlewares=homepage-headers
       - traefik.http.routers.homepage-secured.middlewares=homepage-headers
