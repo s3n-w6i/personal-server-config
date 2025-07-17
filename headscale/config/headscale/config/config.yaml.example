@@ -44,3 +44,15 @@ dns:
   # Whether to use the local DNS settings of a node (default) or override the
   # local DNS settings and force the use of Headscale's DNS configuration.
   override_local_dns: false
+
+# DERP is a relay system that Tailscale uses when a direct
+# connection cannot be established.
+# https://tailscale.com/blog/how-tailscale-works/#encrypted-tcp-relays-derp
+#
+# headscale needs a list of DERP servers that can be presented
+# to the clients.
+derp:
+  server:
+    # If enabled, runs the embedded DERP server and merges it into the rest of the DERP config
+    # The Headscale server_url defined above MUST be using https, DERP requires TLS to be in place
+    enabled: true
