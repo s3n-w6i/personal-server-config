@@ -4,3 +4,9 @@ listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 0.0.0.0:9090
 tls_cert_path: ""
 tls_key_path: ""
+
+noise:
+  # The Noise private key is used to encrypt the traffic between headscale and
+  # Tailscale clients when using the new Noise-based protocol. A missing key
+  # will be automatically generated.
+  private_key_path: /var/lib/headscale/noise_private.key
