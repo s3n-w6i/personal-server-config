@@ -1,0 +1,36 @@
+services:
+  headscale:
+    image: docker.io/headscale/headscale:v0
+    restart: unless-stopped
+    container_name: headscale
+    # ports:
+    #   - "127.0.0.1:8080:8080"
+    #   - "127.0.0.1:9090:9090"
+    volumes:
+      - ./config/headscale/config:/etc/headscale:ro
+      - headscale-lib:/var/lib/headscale
+      - headscale-run:/var/run/headscale
+    command: serve
+    logging:
+      options:
+        max-size: 100m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.headscale-web.loadbalancer.server.url=http://headscale:8080"
+      # HTTP
+      - "traefik.http.routers.headscale-web.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.headscale-web.entrypoints=web"
+      # HTTPS
+      - "traefik.http.routers.headscale-secured.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.headscale-secured.entrypoints=web-secured"
+      - "traefik.http.routers.headscale-secured.tls.certresolver=tlschallenge"
+      # Homepage
+      - homepage.group=Server-Management
+      - homepage.name=Headscale
+      - homepage.description=Wireguard VPN
+      - homepage.icon=si-tailscale
+
+volumes:
+  headscale-lib:
+  headscale-run:
