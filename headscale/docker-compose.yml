@@ -2,6 +2,8 @@ services:
   headscale:
     image: docker.io/headscale/headscale:v0
     restart: unless-stopped
+    networks:
+      - web
     # ports:
     #   - "127.0.0.1:8080:8080"
     #   - "127.0.0.1:9090:9090"
