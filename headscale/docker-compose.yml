@@ -19,10 +19,10 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.services.headscale-web.loadbalancer.server.url=http://headscale:8080"
       # HTTP
-      - "traefik.http.routers.headscale-web.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.headscale-web.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.headscale-web.entrypoints=web"
       # HTTPS
-      - "traefik.http.routers.headscale-secured.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.headscale-secured.rule=Host(`${DOMAINS_HEADSCALE}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.headscale-secured.entrypoints=web-secured"
       - "traefik.http.routers.headscale-secured.tls.certresolver=tlschallenge"
       # Homepage
