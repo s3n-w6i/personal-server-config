@@ -33,3 +33,7 @@ services:
 volumes:
   headscale-lib:
   headscale-run:
+
+networks:
+  web:
+    external: true
