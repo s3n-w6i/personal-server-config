@@ -1,6 +1,6 @@
 services:
   headscale:
-    image: docker.io/headscale/headscale:v0
+    image: docker.io/headscale/headscale:v0.27
     restart: unless-stopped
     networks:
       - web
