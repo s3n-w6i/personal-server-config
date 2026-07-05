@@ -12,10 +12,10 @@
       "dst": ["autogroup:self"],
       "ip": ["*"]
     },
-    // Everyone can access apps
+    // Everyone can access apps via HTTPS
     {
       "src": ["*"],
-      "dst": ["tag:app"],
+      "dst": ["tag:app:443"],
       "ip": ["*"]
     }
   ]
