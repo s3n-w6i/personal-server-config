@@ -43,7 +43,7 @@ dns:
   # `base_domain` must be a FQDN, without the trailing dot.
   # The FQDN of the hosts will be
   # `hostname.base_domain` (e.g., _myhost.example.com_).
-  base_domain: ts.net
+  base_domain: ts.example.com
 
   # Whether to use the local DNS settings of a node (default) or override the
   # local DNS settings and force the use of Headscale's DNS configuration.
