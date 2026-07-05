@@ -71,4 +71,4 @@ policy:
   mode: file
 
   # If the mode is set to "file", the path to a HuJSON file containing policies.
-  path: "policy.hujson"
+  path: "/etc/headscale/policy.hujson"
