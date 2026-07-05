@@ -1,4 +1,10 @@
 {
+  "groups": {
+    "group:admin": ["simon"]
+  },
+  "tagOwners": {
+    "tag:app": ["group:admin"]
+  },
   "grants": [
     // Everyone can access their own devices
     {
