@@ -1,5 +1,5 @@
 # Headscale will run behind a reverse proxy
-server_url: https://headscale.example.com
+server_url: https://ts.example.com
 listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 0.0.0.0:9090
 tls_cert_path: ""
