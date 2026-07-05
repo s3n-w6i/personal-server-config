@@ -1,6 +1,6 @@
 {
   "groups": {
-    "group:admin": ["simon"]
+    "group:admin": ["simon@ts.example.com"]
   },
   "tagOwners": {
     "tag:app": ["group:admin"]
