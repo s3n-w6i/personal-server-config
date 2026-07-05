@@ -1,10 +1,12 @@
 {
   "grants": [
+    // Everyone can access their own devices
     {
       "src": ["autogroup:member"],
       "dst": ["autogroup:self"],
       "ip": ["*"]
     },
+    // Everyone can access apps
     {
       "src": ["*"],
       "dst": ["tag:app"],
