@@ -1,0 +1,84 @@
+x-immich-server-version: &immich_server_version ghcr.io/immich-app/immich-server:v3.3.0
+
+services:
+  immich-server:
+    image: *immich_server_version
+    volumes:
+      - immich_data:/data/
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      REDIS_HOSTNAME: redis
+      DB_HOSTNAME: db
+      DB_USERNAME: postgres
+      DB_DATABASE_NAME: immich
+      DB_PASSWORD: immich
+      DB_DATA_LOCATION: ./data/db
+      TZ: ${TZ}
+    # Ports are exposed via traefik (port 2283)
+    depends_on:
+      - redis
+      - db
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - web
+      - redis
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.services.immich-web.loadbalancer.server.url=http://immich:2283"
+      # HTTP
+      - "traefik.http.routers.immich-web.rule=Host(`${DOMAINS_IMMICH}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_IMMICH}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.immich-web.entrypoints=web"
+      # HTTPS
+      - "traefik.http.routers.immich-secured.rule=Host(`${DOMAINS_IMMICH}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_IMMICH}.${DOMAINS_BASE}`)"
+      - "traefik.http.routers.immich-secured.entrypoints=web-secured"
+      - "traefik.http.routers.immich-secured.tls.certresolver=tlschallenge"
+      # Security Headers
+      - "traefik.http.middlewares.immichHeaders.headers.framedeny=true"
+      - "traefik.http.middlewares.immichHeaders.headers.browserxssfilter=true"
+      # Apply headers
+      - traefik.http.routers.immich-secured.middlewares=immichHeaders
+      # Homepage
+      - homepage.group=Medien
+      - homepage.name=Immich
+      - homepage.icon=si-immich
+      - homepage.href=https://${DOMAINS_IMMICH}.${DOMAINS_BASE}
+      - homepage.description=Bilder und Videos
+
+  redis:
+    image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
+    healthcheck:
+      test: redis-cli ping || exit 1
+    environment:
+      TZ: ${TZ}
+    restart: always
+    networks:
+      - redis
+
+  db:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    environment:
+      POSTGRES_PASSWORD: immich
+      POSTGRES_USER: postgres
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+      TZ: ${TZ}
+    volumes:
+      - db:/var/lib/postgresql/data
+    shm_size: 128mb
+    restart: always
+    networks:
+      - db
+
+volumes:
+  immich_data:
+  db:
+
+networks:
+  web:
+    external: true
+  db:
+  redis:
