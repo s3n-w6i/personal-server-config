@@ -13,7 +13,7 @@ services:
       DB_DATABASE_NAME: immich
       DB_PASSWORD: immich
       DB_DATA_LOCATION: ./data/db
-      TZ: ${TZ}
+      # TZ: ${TZ}
     # Ports are exposed via traefik (port 2283)
     depends_on:
       - redis
@@ -28,7 +28,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.services.immich-web.loadbalancer.server.url=http://immich:2283"
+      - "traefik.http.services.immich-web.loadbalancer.server.url=http://immich-server:2283"
       # HTTP
       - "traefik.http.routers.immich-web.rule=Host(`${DOMAINS_IMMICH}.${DOMAINS_BASE}`) || Host(`www.${DOMAINS_IMMICH}.${DOMAINS_BASE}`)"
       - "traefik.http.routers.immich-web.entrypoints=web"
@@ -52,8 +52,8 @@ services:
     image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
     healthcheck:
       test: redis-cli ping || exit 1
-    environment:
-      TZ: ${TZ}
+    # environment:
+      # TZ: ${TZ}
     restart: always
     networks:
       - redis
@@ -65,7 +65,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: '--data-checksums'
-      TZ: ${TZ}
+      # TZ: ${TZ}
     volumes:
       - db:/var/lib/postgresql/data
     shm_size: 128mb
