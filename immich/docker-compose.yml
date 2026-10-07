@@ -5,7 +5,7 @@ services:
     image: *immich_server_version
     volumes:
       - immich_data:/data/
-      - /etc/zoneinfo:/etc/localtime:ro # the original guide says /etc/localtime:..., but on NixOS it is somewhere else
+      - /etc/zoneinfo/Europe/Berlin:/etc/localtime:ro # the original guide says /etc/localtime:..., but on NixOS it is somewhere else
     environment:
       REDIS_HOSTNAME: redis
       DB_HOSTNAME: db
